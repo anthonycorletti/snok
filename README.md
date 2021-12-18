@@ -4,36 +4,12 @@ A minimal python project template, using `flit` for depenency management and pub
 
 ## Usage
 
-Replace instances of `python_project_template` with then namespace of your project. Rename the source folder `python_project_template` with that same name too.
-
-Replace `pyproject.toml` with relevant values for your project.
-
-Use [pyenv](https://github.com/pyenv/pyenv) for managing your python environment.
-
-Install [flit](https://flit.readthedocs.io/en/latest/).
-
-```sh
-$ which python
-$HOME/.pyenv/shims/python
-$ python -m pip install flit
-```
-
-Set up your virtual environment.
-
-```sh
-$ python -m venv .venv
-$ source .venv/bin/activate
-```
-
-Install dependencies and run tests.
-
-```sh
-# the following command installs to your virtualenv
-$ flit install --python $(which python)
-# the following symlink the module/package into site packages in .venv instead of copying it
-$ ./scripts/install.sh
-# use flit install --python $(which python) locally and ./scripts/install.sh in ci-things
-$ pyenv rehash
-$ ./scripts/test.sh
-$ ./scripts/test-cov-html.sh
-```
+1. Clone this repository.
+1. Replace all instances of `python_project_template` across the entire reposity with the namespace of your project.
+1. Rename the directory `python_project_template` with the same name too.
+1. Replace `pyproject.toml` with relevant values for your project.
+1. Use [pyenv](https://github.com/pyenv/pyenv) for managing your python environment.
+1. Set up your virtual environment.
+1. Run `./scripts/install.sh`
+1. Run `./scripts/test.sh`
+1. You're all set! Make this readme whatever you want now. The future is yours!
