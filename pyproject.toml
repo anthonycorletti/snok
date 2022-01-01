@@ -7,7 +7,7 @@ name = "python_project_template"
 authors = [{name = "Anthony Corletti", email = "python_project_template@example.com"}]
 dynamic = ["version", "description"]
 requires-python = ">=3.9.8"
-requires = []
+dependencies = []
 
 [project.optional-dependencies]
 test = [
