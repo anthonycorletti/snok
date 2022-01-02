@@ -28,4 +28,4 @@ dev = [
 profile = "black"
 
 [project.urls]
-Documentation = "https://www.github.com/anthcor/python_project_template"
+Documentation = "https://www.github.com/anthonycorletti/python_project_template"
