@@ -6,6 +6,7 @@ build-backend = "flit_core.buildapi"
 name = "python_project_template"
 authors = [{name = "Anthony Corletti", email = "python_project_template@example.com"}]
 dynamic = ["version", "description"]
+readme = "README.md"
 requires-python = ">=3.9.8"
 dependencies = []
 
