@@ -1,6 +1,6 @@
 # python_project_template
 
-A minimal python project template, using `flit` for depenency management and publishing, which can be used for CLIs, APIs, GRPC, and other python applications.
+A minimal python project template that can be used for CLIs, APIs, GRPC, and other python applications.
 
 ## Usage
 

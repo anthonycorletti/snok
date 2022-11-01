@@ -17,13 +17,19 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
+
       - name: apt-get update
         run: sudo apt-get update -y
+
       - name: set up python
-        uses: actions/setup-python@v1
+        uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "pip"
+          cache-dependency-path: "pyproject.toml"
+
       - name: install dependencies
         run: ./scripts/install.sh
+
       - name: run tests
         run: ./scripts/test.sh

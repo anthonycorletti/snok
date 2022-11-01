@@ -1,7 +1,5 @@
 #!/bin/sh -e
 
 pip install --upgrade pip
-pip install flit
-
-flit install --deps=all --extras=all --symlink
+pip install --no-cache-dir '.[dev,test]'
 pre-commit install

@@ -32,11 +32,11 @@ which python pip
 
 You should see paths that use the .venv/bin in your current working directory.
 
-## Installing with Flit
+## Installing dependencies
 
-This project uses `flit` to manage our project's dependencies.
+This project uses `pip` to manage our project's dependencies.
 
-Install dependencies, including flit.
+Install dependencies;
 
 ```sh
 ./scripts/install.sh
