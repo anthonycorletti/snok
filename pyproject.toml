@@ -15,12 +15,10 @@ test = [
     "pytest-cov >=3.0.0",
 ]
 dev = [
-    "flake8 >=3.9.2",
     "mypy >=0.910",
     "black >=21.10b0",
     "isort >=5.9.3",
-    "autoflake >=1.4",
-    "flake8-docstrings >=1.6.0",
+    "ruff >=0.0.98",
     "pre-commit >=2.17.0",
 ]
 
@@ -36,3 +34,25 @@ readme = {file = ["README.md"]}
 
 [tool.isort]
 profile = "black"
+
+[tool.ruff]
+line-length = 88
+ignore = [
+    "D10",
+    "D415",
+]
+target-version = "py310"
+extend-select = ["D"]
+extend-ignore = [
+    "D203",
+    "D204",
+    "D213",
+    "D215",
+    "D400",
+    "D404",
+    "D406",
+    "D407",
+    "D408",
+    "D409",
+    "D413",
+]
