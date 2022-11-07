@@ -1,6 +1,6 @@
 import os
 
-from python_project_template_anthony.main import foo
+from python_project_template.main import foo
 
 
 def test_timezone() -> None:
