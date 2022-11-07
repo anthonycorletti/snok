@@ -142,3 +142,7 @@ cython_debug/
 *.lock
 
 tmp/
+
+*.whl
+
+.ruff_cache/

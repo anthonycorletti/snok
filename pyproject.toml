@@ -1,10 +1,11 @@
 [build-system]
-requires = ["setuptools>=65.0", "wheel >=0.37"]
+requires = ["setuptools >=65.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "python_project_template"
 authors = [{name = "Anthony Corletti", email = "python_project_template@example.com"}]
-dynamic = ["version", "readme"]
+dynamic = ["version", "readme", "description"]
 requires-python = ">=3.10"
 dependencies = []
 
@@ -31,6 +32,7 @@ py-modules = ["python_project_template"]
 [tool.setuptools.dynamic]
 version = {attr = "python_project_template.__version__"}
 readme = {file = ["README.md"]}
+description = {file = ["README.md"]}
 
 [tool.isort]
 profile = "black"
