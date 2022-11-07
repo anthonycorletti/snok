@@ -52,7 +52,7 @@ If applicable, add screenshots to help explain your problem.
 ### Environment
 
 * OS: [e.g. Linux / Windows / macOS]
-* python_project_template version [e.g. 0.1.0]
+* python_project_template_anthony version [e.g. 0.1.0]
 * python version [e.g. the output of `python --version`]
 
 ### Additional context

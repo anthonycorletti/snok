@@ -3,8 +3,8 @@ requires = ["setuptools >=65.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "python_project_template"
-authors = [{name = "Anthony Corletti", email = "python_project_template@example.com"}]
+name = "python_project_template_anthony"
+authors = [{name = "Anthony Corletti", email = "python_project_template_anthony@example.com"}]
 dynamic = ["version", "readme", "description"]
 requires-python = ">=3.10"
 dependencies = []
@@ -24,13 +24,13 @@ dev = [
 ]
 
 [project.urls]
-Documentation = "https://www.github.com/anthonycorletti/python_project_template"
+Documentation = "https://www.github.com/anthonycorletti/python_project_template_anthony"
 
 [tool.setuptools]
-py-modules = ["python_project_template"]
+py-modules = ["python_project_template_anthony"]
 
 [tool.setuptools.dynamic]
-version = {attr = "python_project_template.__version__"}
+version = {attr = "python_project_template_anthony.__version__"}
 readme = {file = ["README.md"]}
 description = {file = ["README.md"]}
 

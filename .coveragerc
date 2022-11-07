@@ -1,6 +1,6 @@
 [run]
 source =
-    python_project_template
+    python_project_template_anthony
     tests
 
 omit =
