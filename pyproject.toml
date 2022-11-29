@@ -15,16 +15,15 @@ dependencies = []
 
 [project.optional-dependencies]
 test = [
-    "pytest >=6.2.5",
-    "coverage >=6.1.1",
-    "pytest-cov >=3.0.0",
+    "pytest>=6.2.5",
+    "coverage>=6.1.1",
+    "pytest-cov>=3.0.0",
 ]
 dev = [
-    "mypy >=0.910",
-    "black >=21.10b0",
-    "isort >=5.9.3",
-    "ruff >=0.0.98",
-    "pre-commit >=2.17.0",
+    "mypy>=0.910",
+    "black>=21.10b0",
+    "ruff>=0.0.98",
+    "pre-commit>=2.17.0",
 ]
 
 [project.urls]
@@ -32,9 +31,6 @@ Documentation = "https://github.com/anthonycorletti/python_project_template"
 
 [tool.setuptools.dynamic]
 version = {attr = "python_project_template.__version__"}
-
-[tool.isort]
-profile = "black"
 
 [tool.ruff]
 line-length = 88
