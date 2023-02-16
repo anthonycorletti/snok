@@ -8,7 +8,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "python_project_template"
 authors = [{name = "Anthony Corletti", email = "python_project_template@example.com"}]
-dynamic = ["version", "readme", "license"]
+dynamic = ["version"]
+readme = "README.md"
+license = {text = 'See LICENSE'}
 description = "python_project_template"
 requires-python = ">=3.10"
 dependencies = []
