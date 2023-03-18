@@ -17,9 +17,7 @@ Put `Closes #issue-number` here to auto-close the issue.
 
 ## How are these changes tested?
 
-This pull request includes automated tests for the code it touches and those tests are described below.
-
-These changes are tested with [...]
+This pull request includes automated tests for the code it touches and those tests are described below. These changes are tested with [...]
 
 ## Demonstration
 

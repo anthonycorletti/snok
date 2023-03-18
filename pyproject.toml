@@ -7,25 +7,27 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "python_project_template"
-authors = [{name = "Anthony Corletti", email = "python_project_template@example.com"}]
 dynamic = ["version"]
 readme = "README.md"
 license = {text = 'See LICENSE'}
 description = "python_project_template"
 requires-python = ">=3.10"
 dependencies = []
+[[project.authors]]
+name = "Anthony Corletti"
+email = "python_project_template@example.com"
 
 [project.optional-dependencies]
 test = [
-    "pytest>=6.2.5",
-    "coverage>=6.1.1",
-    "pytest-cov>=3.0.0",
+    "pytest >=6.2.5",
+    "coverage >=6.1.1",
+    "pytest-cov >=3.0.0",
 ]
 dev = [
-    "mypy>=0.910",
-    "black>=21.10b0",
-    "ruff>=0.0.98",
-    "pre-commit>=2.17.0",
+    "mypy >=0.910",
+    "black >=21.10b0",
+    "ruff >=0.0.98",
+    "pre-commit >=2.17.0",
 ]
 
 [project.urls]
@@ -35,10 +37,9 @@ Documentation = "https://github.com/anthonycorletti/python_project_template"
 version = {attr = "python_project_template.__version__"}
 
 [tool.ruff]
+select = ["E", "F", "I"]
+ignore = ["D10"]
 line-length = 88
-ignore = [
-    "D10",
-]
 target-version = "py310"
 extend-ignore = [
     "D203",
