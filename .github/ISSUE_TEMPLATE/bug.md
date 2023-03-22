@@ -4,7 +4,6 @@ about: Create a bug report
 title: "[BUG]"
 labels: bug
 assignees: ''
-
 ---
 
 ### Describe the bug
@@ -13,11 +12,9 @@ Write a clear and concise description of the bug.
 
 ### To Reproduce
 
-Steps to reproduce the behavior with a minimum self-contained file.
+Replace each part pertaining to your bug with the appropriate information.
 
-Replace each part with your own scenario:
-
-* Code that is causing the bug:
+* Code that demonstrates the bug:
 
 ```
 # code goes here
@@ -29,13 +26,13 @@ Replace each part with your own scenario:
 # command goes here
 ```
 
-* It outputs:
+* It did this:
 
 ```
 output goes here
 ```
 
-* But I expected it to output:
+* But I expected it to do this instead:
 
 ```
 expected output goes here
@@ -47,7 +44,7 @@ Add a clear and concise description of what you expected to happen.
 
 ### Screenshots
 
-If applicable, add screenshots to help explain your problem.
+If applicable, add screenshots to help explain the bug.
 
 ### Environment
 
@@ -57,4 +54,4 @@ If applicable, add screenshots to help explain your problem.
 
 ### Additional context
 
-Add as much context about the problem you like.
+Add as much context about the bug as you like.

@@ -10,7 +10,7 @@ assignees: ''
 * [ ] I searched the available documentation for this project via integrated search.
 * [ ] I already searched in Google for what I was looking for and didn't find any information.
 
-### Question
+### Your question
 
 Who|What|Where|When|Why|How [...]?
 
@@ -18,4 +18,4 @@ Is it possible to [...]?
 
 ### Additional context
 
-Add any other context or screenshots about the feature request here.
+Add any other context or screenshots here.

@@ -10,12 +10,10 @@ assignees: ''
 * [ ] I searched the available documentation for this project via integrated search.
 * [ ] I already searched in Google for what I was looking for and didn't find any information.
 
-### Question
+### What sort of documentation do you need?
 
-Who|What|Where|When|Why|How [...]?
-
-Is it possible to [...]?
+This is a documentation request for [...]
 
 ### Additional context
 
-Add any other context or screenshots about the feature request here.
+Add as much context as you like.
