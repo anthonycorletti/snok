@@ -1,9 +1,0 @@
-[run]
-source =
-    python_project_template
-    tests
-
-omit =
-    *__init__.py
-
-parallel = True
