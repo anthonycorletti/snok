@@ -10,6 +10,5 @@ A minimal python project template that can be used for CLIs, APIs, GRPC, and oth
 1. Replace `pyproject.toml` with relevant values for your project.
 1. Use [pyenv](https://github.com/pyenv/pyenv) for managing your python environment.
 1. Set up your virtual environment.
-1. Run `./scripts/install.sh`
-1. Run `./scripts/test.sh`
+1. Run `make`
 1. You're all set! Make this readme whatever you want now. The future is yours!
