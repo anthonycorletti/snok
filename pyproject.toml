@@ -9,13 +9,13 @@ build-backend = "setuptools.build_meta"
 name = "python_project_template"
 dynamic = ["version"]
 readme = "README.md"
-license = {text = 'See LICENSE'}
+license = {text = 'MIT'}
 description = "python_project_template"
 requires-python = ">=3.10"
 dependencies = []
 [[project.authors]]
 name = "Anthony Corletti"
-email = "python_project_template@example.com"
+email = "anthcor+python_project_template@gmail.com"
 
 [project.optional-dependencies]
 test = [
@@ -28,18 +28,26 @@ dev = [
     "black >=21.10b0",
     "ruff >=0.0.98",
     "pre-commit >=2.17.0",
+    "invoke >=1.7.0",
 ]
 
 [project.urls]
 Documentation = "https://github.com/anthonycorletti/python_project_template"
 
+[project.scripts]
+bumpversion = "tasks:bump_version"
+
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.dynamic]
 version = {attr = "python_project_template.__version__"}
 
 [tool.ruff]
-select = ["E", "F", "I"]
-ignore = ["D10"]
 line-length = 88
+ignore = ["D10"]
+include = ["*.py"]
+select = ["E", "F", "I"]
 target-version = "py310"
 extend-ignore = [
     "D203",
@@ -54,4 +62,38 @@ extend-ignore = [
     "D409",
     "D413",
     "D415",
+]
+
+[tool.black]
+target-version = ['py310']
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.*_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | __pycache__
+)/
+'''
+
+[tool.mypy]
+ignore_missing_imports = true
+disallow_untyped_defs = true
+mypy_path = ["python_project_template", "tests"]
+exclude = ["dist", "build", ".venv"]
+
+[tool.coverage.run]
+source = ["python_project_template", "tests"]
+omit = ["*__init__.py"]
+parallel = true
+
+[tool.coverage.report]
+exclude_lines = [
+    'pragma: no cover',
+    'raise NotImplementedError'
 ]

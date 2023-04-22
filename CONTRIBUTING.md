@@ -4,11 +4,7 @@ Assuming you have cloned this repository to your local machine, you can follow t
 
 **First, please install pyenv https://github.com/pyenv/pyenv to manage your python environment.**
 
-Install the version of python as mentioned in this repo.
-
-```sh
-pyenv install $(cat .python-version)
-```
+Use `pyenv install` to install a version of python. You can see the available versions with `pyenv install --list` and the suggested version of python is noted in the `pyproject.toml` file.
 
 ## Use a virtual environment
 
@@ -39,18 +35,23 @@ This project uses `pip` to manage our project's dependencies.
 Install dependencies;
 
 ```sh
-./scripts/install.sh
-pyenv rehash
+make install
+```
+
+## Linting
+
+```sh
+make lint
 ```
 
 ## Formatting
 
 ```sh
-./scripts/format.sh
+make format
 ```
 
 ## Tests
 
 ```sh
-./scripts/test.sh
+make test
 ```

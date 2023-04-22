@@ -146,3 +146,5 @@ tmp/
 *.whl
 
 .ruff_cache/
+
+.python-version
