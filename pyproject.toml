@@ -34,9 +34,6 @@ dev = [
 [project.urls]
 Documentation = "https://github.com/anthonycorletti/python_project_template"
 
-[project.scripts]
-bumpversion = "tasks:bump_version"
-
 [tool.setuptools]
 include-package-data = true
 
