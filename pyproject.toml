@@ -18,12 +18,10 @@ name = "Anthony Corletti"
 email = "anthcor+python_project_template@gmail.com"
 
 [project.optional-dependencies]
-test = [
+dev = [
     "pytest >=6.2.5",
     "coverage >=6.1.1",
     "pytest-cov >=3.0.0",
-]
-dev = [
     "mypy >=0.910",
     "black >=21.10b0",
     "ruff >=0.0.98",

@@ -49,7 +49,7 @@ def install(ctx: Context) -> None:
         echo=True,
     )
     ctx.run(
-        "pip install --no-cache-dir -e '.[dev,test]'",
+        "pip install -e '.[dev]'",
         pty=True,
         echo=True,
     )
