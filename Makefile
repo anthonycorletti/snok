@@ -26,7 +26,7 @@ format:
 
 .PHONY: test
 test:
-	pytest --cov=python_project_template --cov=tests --cov-report=term-missing --cov-report=xml --cov-report=html -o console_output_style=progress --disable-warnings --cov-fail-under=100
+	pytest -o console_output_style=progress --disable-warnings --cov=python_project_template --cov=tests --cov-report=term-missing --cov-report=xml --cov-report=html --cov-fail-under=100
 
 .PHONY: build
 build:
