@@ -3,7 +3,6 @@ from enum import Enum, unique
 
 from invoke import task
 from invoke.context import Context
-from packaging.version import Version
 
 from python_project_template import __version__
 
@@ -204,6 +203,8 @@ def _bump_version(version: str, bump: BumpType) -> str:
     Returns:
         str: The bumped version string.
     """
+    from packaging.version import Version
+
     v = Version(version)
     if bump == BumpType.MAJOR:
         v = Version(f"{v.major + 1}.0.0")
