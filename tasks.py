@@ -1,4 +1,3 @@
-import subprocess
 from enum import Enum, unique
 
 from invoke import task
@@ -235,30 +234,3 @@ def update_version_number(ctx: Context, part: BumpType = BumpType.MICRO) -> None
             else:
                 f.write(line)
     print(f"New version: {new_version}")
-
-
-@task
-def update_version_number_from_commit_message(ctx: Context) -> None:
-    """update version number from commit message
-
-    Specify the commit message to use to determine the part of the version
-    number to bump. The commit message should be of the form:
-
-        bumpversion: <major|minor|micro>
-
-    """
-    commit_msg = subprocess.check_output(
-        ["git", "log", "--format=%B", "-n", "1", "HEAD"]
-    ).decode("utf-8")
-    if commit_msg == "bumpversion":
-        update_version_number(ctx, BumpType.MICRO)
-    elif commit_msg.startswith("bumpversion: "):
-        bump_type = commit_msg.split(": ")[1].strip()
-        if bump_type == "major":
-            update_version_number(ctx, BumpType.MAJOR)
-        elif bump_type == "minor":
-            update_version_number(ctx, BumpType.MINOR)
-        elif bump_type == "micro":
-            update_version_number(ctx, BumpType.MICRO)
-    else:
-        print(f"Commit message does not start with 'bumpversion:' - {commit_msg}")

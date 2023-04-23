@@ -19,17 +19,7 @@ repos:
     rev: v0.0.262
     hooks:
       - id: ruff
-  - repo: local
-    hooks:
-      - id: update-version-number-from-commit-message
-        name: update-version-number-from-commit-message
-        entry: invoke update-version-number-from-commit-message
-        language: system
-        always_run: true
-        pass_filenames: false
 
 ci:
   autofix_commit_msg: "[pre-commit.ci] Auto-fix from pre-commit"
   autoupdate_commit_msg: "[pre-commit.ci] Auto-update from pre-commit"
-  skip:
-    - update-version-number-from-commit-message
