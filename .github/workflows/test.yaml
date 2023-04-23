@@ -30,11 +30,14 @@ jobs:
           cache: "pip"
           cache-dependency-path: "pyproject.toml"
 
+      - name: install invoke
+        run: pip install invoke
+
       - name: install
-        run: make install
+        run: inv install
 
       - name: lint
-        run: make lint
+        run: inv lint
 
       - name: test
-        run: make test
+        run: inv test

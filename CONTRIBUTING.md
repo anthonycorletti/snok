@@ -30,28 +30,34 @@ You should see paths that use the .venv/bin in your current working directory.
 
 ## Installing dependencies
 
-This project uses `pip` to manage our project's dependencies.
+This project uses `pip` to manage our project's dependencies and all tasks are managed with `invoke`. Invoke is a python package that allows you to define tasks in a python file and run them from the command line, similar to `make` and `rake`, but with a pythonic syntax, it's really great!
 
-Install dependencies;
+In your virtual environment, install `invoke` by running;
 
 ```sh
-make install
+pip install invoke
+```
+
+Then to install the project's dependencies, run;
+
+```sh
+inv install
 ```
 
 ## Linting
 
 ```sh
-make lint
+inv lint
 ```
 
 ## Formatting
 
 ```sh
-make format
+inv format
 ```
 
 ## Tests
 
 ```sh
-make test
+inv test
 ```
