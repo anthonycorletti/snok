@@ -34,9 +34,6 @@ dev = [
 [project.urls]
 Documentation = "https://github.com/anthonycorletti/python_project_template"
 
-[tool.setuptools]
-include-package-data = true
-
 [tool.setuptools.dynamic]
 version = {attr = "python_project_template.__version__"}
 
