@@ -250,7 +250,9 @@ def update_version_number_from_commit_message(ctx: Context) -> None:
     commit_msg = subprocess.check_output(
         ["git", "log", "--format=%B", "-n", "1", "HEAD"]
     ).decode("utf-8")
-    if commit_msg.startswith("bumpversion: "):
+    if commit_msg == "bumpversion":
+        update_version_number(ctx, BumpType.MICRO)
+    elif commit_msg.startswith("bumpversion: "):
         bump_type = commit_msg.split(": ")[1].strip()
         if bump_type == "major":
             update_version_number(ctx, BumpType.MAJOR)
