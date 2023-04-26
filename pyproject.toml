@@ -57,6 +57,9 @@ extend-ignore = [
     "D415",
 ]
 
+[tool.ruff.pydocstyle]
+convention = "google"
+
 [tool.black]
 target-version = ['py310']
 include = '\.pyi?$'
