@@ -35,7 +35,7 @@ This project uses `pip` to manage our project's dependencies and all tasks are m
 In your virtual environment, install `invoke` by running;
 
 ```sh
-pip install invoke
+pip install --upgrade pip && pip install invoke
 ```
 
 Then to install the project's dependencies, run;

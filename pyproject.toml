@@ -19,15 +19,15 @@ email = "anthcor+python_project_template@gmail.com"
 
 [project.optional-dependencies]
 dev = [
-    "pytest >=6.2.5",
-    "coverage >=6.1.1",
-    "pytest-cov >=3.0.0",
-    "mypy >=0.910",
     "black >=21.10b0",
-    "ruff >=0.0.98",
-    "pre-commit >=2.17.0",
-    "invoke >=1.7.0",
+    "coverage >=6.1.1",
+    "invoke >=2.0.0",
+    "mypy >=0.910",
     "packaging >=21.0",
+    "pre-commit >=2.17.0",
+    "pytest >=6.2.5",
+    "pytest-cov >=3.0.0",
+    "ruff >=0.0.98",
 ]
 
 [project.urls]
