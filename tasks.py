@@ -222,6 +222,7 @@ def update_version_number(ctx: Context, part: BumpType = BumpType.MICRO) -> None
     micro version number. Other options are major and minor.
     """
     from python_project_template import __version__
+
     print(f"Current version: {__version__}")
     new_version = _bump_version(__version__, part)
     with open(VERSION_FILE, "r") as f:
