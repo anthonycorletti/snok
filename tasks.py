@@ -1,4 +1,5 @@
 from enum import Enum, unique
+from typing import Optional
 
 from invoke import task
 from invoke.context import Context
@@ -187,10 +188,9 @@ def all(ctx: Context) -> None:
 class BumpType(Enum):
     MAJOR = "major"
     MINOR = "minor"
-    MICRO = "micro"
 
 
-def _bump_version(version: str, bump: BumpType) -> str:
+def _bump_version(version: str, bump: Optional[BumpType] = None) -> str:
     """Bump a version string.
 
     Args:
@@ -207,15 +207,13 @@ def _bump_version(version: str, bump: BumpType) -> str:
         v = Version(f"{v.major + 1}.0.0")
     elif bump == BumpType.MINOR:
         v = Version(f"{v.major}.{v.minor + 1}.0")
-    elif bump == BumpType.MICRO:
-        v = Version(f"{v.major}.{v.minor}.{v.micro + 1}")
     else:
-        raise ValueError(f"Invalid bump type: {bump}")
+        v = Version(f"{v.major}.{v.minor}.{v.micro + 1}")
     return str(v)
 
 
 @task
-def update_version_number(ctx: Context, part: BumpType = BumpType.MICRO) -> None:
+def update_version_number(ctx: Context, part: Optional[BumpType] = None) -> None:
     """update version number
 
     Specify the part of the version number to bump. The default is to bump the
