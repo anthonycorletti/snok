@@ -6,55 +6,29 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "snok"
-description = "🚀 A simple, modern, full-stack toolkit for Python 🐍"
+name = "{{ __template_name }}"
+description = "{{ __template_description }}"
 readme = "README.md"
 dynamic = [
     "version",
 ]
 requires-python = ">=3.11"
-dependencies = [
-    "black>=21.10",
-    "coverage>=6.1.1",
-    "fastapi>=0.97.0",
-    "gunicorn>=20.1.0",
-    "invoke>=2.0.0",
-    "mypy>=0.910",
-    "packaging>=21.0",
-    "pre-commit>=2.17.0",
-    "pydantic>=1.8.2",
-    "pytest-cov>=3.0.0",
-    "pytest-xdist>=3.3.1",
-    "pytest>=6.2.5",
-    "rich>=10.12.0",
-    "ruff>=0.0.98",
-    "setuptools>=67.8.0",
-    "toml>=0.10.2",
-    "typer>=0.7.0",
-    "types-toml>=0.1.0",
-    "uvicorn>=0.15.0",
-    "wheel>=0.36",
-]
-[[project.authors]]
-name = "Anthony Corletti"
-email = "anthcor+snok@gmail.com"
-
-[project.license]
-text = "MIT"
+dependencies = []
 
 [project.optional-dependencies]
 dev = [
-    "mdx-include>=1.4.2",
-    "mkdocs>=1.4.2",
-    "mkdocs-material>=9.1.5",
+    "black>=21.10",
+    "coverage>=6.1.1",
+    "mypy>=0.910",
+    "packaging>=21.0",
+    "pre-commit>=2.17.0",
+    "pytest-cov>=3.0.0",
+    "pytest-xdist>=3.3.1",
+    "pytest>=6.2.5",
+    "ruff>=0.0.98",
+    "setuptools>=67.8.0",
+    "wheel>=0.36",
 ]
-
-[project.urls]
-Home = "https://github.com/anthonycorletti/snok"
-Documentation = "https://snok.corletti.xyz"
-
-[project.scripts]
-snok = "snok.cli:app"
 
 [tool.ruff]
 line-length = 88
@@ -64,18 +38,12 @@ ignore = [
 include = [
     "*.py",
 ]
-exclude = [
-    "dist",
-    "build",
-    ".venv",
-    "snok/templates/*",
-]
 select = [
     "E",
     "F",
     "I",
 ]
-target-version = "py311"
+target-version = "py310"
 extend-ignore = [
     "D203",
     "D204",
@@ -93,7 +61,7 @@ extend-ignore = [
 
 [tool.black]
 target-version = [
-    "py311",
+    "py310",
 ]
 include = '\.pyi?$'
 exclude = '''
@@ -107,12 +75,6 @@ exclude = '''
   | build
   | dist
   | __pycache__
-  | snok/templates/*
-)/
-'''
-force-exclude = '''
-/(
-    snok/templates/*
 )/
 '''
 
@@ -120,14 +82,13 @@ force-exclude = '''
 ignore_missing_imports = true
 disallow_untyped_defs = true
 mypy_path = [
-    "snok",
+    "{{ __template_name }}",
     "tests",
 ]
 exclude = [
     "dist",
     "build",
     ".venv",
-    "snok/templates/*"
 ]
 
 [tool.ruff.pydocstyle]
@@ -139,10 +100,9 @@ addopts = [
     "auto",
     "-o",
     "console_output_style=progress",
-    "--ignore=snok/templates",
     "--disable-warnings",
     "--showlocals",
-    "--cov=snok",
+    "--cov={{ __template_name }}",
     "--cov=tests",
     "--cov-report=term-missing",
     "--cov-report=xml",
@@ -153,7 +113,6 @@ addopts = [
 [tool.coverage.run]
 omit = [
     "*__init__.py",
-    "snok/templates/*",
 ]
 
 [tool.coverage.report]
@@ -169,4 +128,4 @@ directory = "htmlcov"
 output = "coverage.xml"
 
 [tool.setuptools.dynamic.version]
-attr = "snok.__version__"
+attr = "{{ __template_name }}.__version__"

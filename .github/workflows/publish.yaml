@@ -7,10 +7,11 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
-        python-version: ["3.10"]
-      fail-fast: false
+        python-version: ["3.11"]
+
     steps:
       - name: checkout
         uses: actions/checkout@v3
@@ -23,8 +24,8 @@ jobs:
       - name: set up python
         uses: actions/setup-python@v4
         with:
-          python-version: ${{ matrix.python-version }}
           cache: "pip"
+          python-version: ${{ matrix.python-version }}
           cache-dependency-path: "pyproject.toml"
 
       - name: install invoke

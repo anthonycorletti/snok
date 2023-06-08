@@ -14,25 +14,25 @@ Write a clear and concise description of the bug.
 
 Replace each part pertaining to your bug with the appropriate information.
 
-* Code that demonstrates the bug:
+**Code that demonstrates the bug**:
 
 ```
 # code goes here
 ```
 
-* Run this code with:
+**Run this code with**:
 
 ```
 # command goes here
 ```
 
-* It did this:
+**It did this**:
 
 ```
 output goes here
 ```
 
-* But I expected it to do this instead:
+**But I expected it to do this instead**:
 
 ```
 expected output goes here
@@ -48,9 +48,9 @@ If applicable, add screenshots to help explain the bug.
 
 ### Environment
 
-* OS: [e.g. Linux / Windows / macOS]
-* python_project_template version [e.g. 0.1.0]
 * python version [e.g. the output of `python --version`]
+* OS: [e.g. Linux / Windows / macOS]
+* snok version [e.g. 0.1.0]
 
 ### Additional context
 

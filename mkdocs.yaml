@@ -1,0 +1,66 @@
+site_name: snok
+site_description: 🚀 A simple, modern, full-stack toolkit for Python 🐍
+site_url: https://snok.corletti.xyz
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: green
+      accent: blue
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  icon:
+    repo: fontawesome/brands/github-alt
+    logo: material/snake
+    favicon: material/snake
+
+repo_name: anthonycorletti/snok
+repo_url: https://github.com/anthonycorletti/snok
+edit_uri: ""
+
+nav:
+  - Welcome: index.md
+  - Development & Contributing: contributing.md
+  - Release Notes: release-notes.md
+
+markdown_extensions:
+  - toc:
+      title: On this page
+      permalink: true
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - admonition
+  - codehilite
+  - extra
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format ""
+  - pymdownx.tabbed:
+      alternate_style: true
+  - mdx_include:
+      base_path: docs
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+extra:
+  social:
+    - icon: fontawesome/brands/github-alt
+      link: https://github.com/anthonycorletti/snok
+    - icon: fontawesome/solid/globe
+      link: https://snok.corletti.xyz

@@ -6,10 +6,10 @@ from urllib.request import urlopen
 from invoke import task
 from invoke.context import Context
 
-PACKAGE_NAME = "snok"
+PACKAGE_NAME = "{{ __template_name }}"
 PYPROJECT_TOML_FILENAME = "pyproject.toml"
 VERSION_FILE = f"{PACKAGE_NAME}/__init__.py"
-SOURCES = " ".join(["snok", "tests", "tasks.py"])
+SOURCES = " ".join(["{{ __template_name }}", "tests", "tasks.py"])
 
 
 @unique
@@ -371,7 +371,7 @@ def update_version_number(ctx: Context, part: Optional[BumpType] = None) -> None
     Specify the part of the version number to bump. The default is to bump the
     micro version number. Other options are major and minor.
     """
-    from snok import __version__
+    from {{ __template_name }} import __version__
 
     print(f"Current version: {__version__}")
     new_version = _bump_version(__version__, part)
@@ -384,44 +384,3 @@ def update_version_number(ctx: Context, part: Optional[BumpType] = None) -> None
             else:
                 f.write(line)
     print(f"New version: {new_version}")
-
-
-@task
-def docs_build(ctx: Context) -> None:
-    """docs_build
-
-    Build the docs.
-    """
-    ctx.run(
-        "mkdocs build",
-        pty=True,
-        echo=True,
-    )
-    ctx.run(
-        "cp ./docs/index.md ./README.md",
-        pty=True,
-        echo=True,
-    )
-    ctx.run(
-        "git add ./docs README.md",
-        pty=True,
-        echo=True,
-    )
-    ctx.run(
-        "git commit -S -m '📚 Updated docs.'",
-        pty=True,
-        echo=True,
-    )
-
-
-@task
-def docs_serve(ctx: Context) -> None:
-    """docs_serve
-
-    Serve the docs.
-    """
-    ctx.run(
-        "mkdocs serve --dev-addr 127.0.0.1:8008",
-        pty=True,
-        echo=True,
-    )

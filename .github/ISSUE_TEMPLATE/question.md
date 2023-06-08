@@ -12,9 +12,7 @@ assignees: ''
 
 ### Your question
 
-Who|What|Where|When|Why|How [...]?
-
-Is it possible to [...]?
+Who|What|Where|When|Why|How|Is it possible to [...]?
 
 ### Additional context
 
