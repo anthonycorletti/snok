@@ -31,7 +31,9 @@ Snok is a simple, modern, full-stack toolkit for Python.
 
 ## 🙋 Why?
 
-Snok is a toolkit for Python that focuses on making it simple and easy to build modern, full-stack applications, across web and AI frameworks.
+The Python tooling ecosystem has plenty of options, and often times, it's not clear whether or not you're following the "right" way to do things, especially when those ways are changing week to week.
+
+With this in mind, snok is a Python toolkit for developers that focuses on making it simple and easy to build modern, full-stack applications, across web and AI frameworks.
 
 Snok is designed to leverage the best tools and packages that exist in the Python ecosystem in simple and easy to use workflows that accelerate development.
 
