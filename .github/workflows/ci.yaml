@@ -42,3 +42,11 @@ jobs:
 
       - name: test
         run: inv test
+
+      - name: upload coverage
+        if: github.ref == 'refs/heads/main'
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage.xml
+          fail_ci_if_error: true
