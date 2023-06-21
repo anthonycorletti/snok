@@ -8,6 +8,9 @@ jobs:
   publish:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+
     strategy:
       matrix:
         python-version: ["3.11"]
@@ -35,7 +38,4 @@ jobs:
         run: inv build
 
       - name: publish
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-        run: inv publish
+        uses: pypa/gh-action-pypi-publish@release/v1
