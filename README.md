@@ -29,7 +29,7 @@
 
 Snok is a simple, modern, full-stack toolkit for Python.
 
-Snok is in it's earliest stages, so feedback and ideas are very welcome and encouraged. Please open an [issue](https://github.com/anthonycorletti/snok/issues/new/choose) if you have a question, comment, feature request, idea, etc, or connect with Anthony directly on [Twitter](https://twitter.com/anthonycorletti) if you'd like to get in touch about the project.
+Snok is in it's earliest stages, so feedback and ideas are very welcome and encouraged. Please open an [issue](https://github.com/anthonycorletti/snok/issues/new/choose) if you have a question, comment, feature request, idea, etc, and/or connect with Anthony directly on [Twitter](https://twitter.com/anthonycorletti) if you'd like to get in touch about the project.
 
 ## 🙋 Why?
 
