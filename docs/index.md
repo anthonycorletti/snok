@@ -39,15 +39,16 @@ Snok is designed to leverage the best tools and packages that exist in the Pytho
 
 - Package generation
 - Task management with `invoke`
-- Package management with `setuptools`
-- Linting with `ruff`
+- Packaging with `setuptools`
+- Linting with `ruff` and `black`
+- Type checking with `mypy`
 - Testing with `pytest`
 
 ## 🤩 Coming Soon
 
 - Web application generation with `fastapi` and `htmx`
 - Database integration with `pydantic` and `sqlmodel`
-- Production ready deployment stacks with `nix`, `docker`, `skaffold`, and `kustomize`
+- Production ready deployment stacks with `nix`, `docker`, `skaffold` and `kustomize`
 - AI framework integrations with `pytorch` and `langchain`
 
 Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) and [pull requests](https://github.com/anthonycorletti/snok/pulls) to see what's coming soon!
@@ -99,6 +100,6 @@ inv remove fastapi
 
 ## 📲 Contact
 
-Reach out to Anthony directly on [Twitter](https://twitter.com/anthonycorletti) if you'd like to get in touch.
+Reach out on [Twitter](https://twitter.com/anthonycorletti) if you'd like to get in touch!
 
 &nbsp;
