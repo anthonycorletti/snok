@@ -30,9 +30,6 @@ dev = [
     "wheel>=0.36",
 ]
 
-[tool.setuptools.dynamic.version]
-attr = "{{ __template_name }}.__version__"
-
 [tool.setuptools.package-data]
 {{ __template_name }} = ["py.typed"]
 
