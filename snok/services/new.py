@@ -1,3 +1,4 @@
+import importlib.resources as resources
 import os
 
 from jinja2 import Template
@@ -7,7 +8,9 @@ from snok.const import ProjectType
 
 class BaseNewService:
     def __init__(self) -> None:
-        self.root_template_dir = "snok/templates"
+        import snok
+
+        self.root_template_dir = str(resources.files(snok)) + "/templates"
 
     def create(
         self,
@@ -76,16 +79,15 @@ class NewPackageService(BaseNewService):
         shared_template_dir = f"{self.root_template_dir}/__shared"
         package_template_dir = f"{self.root_template_dir}/__{type.value}"
         tests_template_dir = f"{self.root_template_dir}/__{type.value}_tests"
-        root_output_dir = f"{output_dir}/{name}"
-        os.makedirs(root_output_dir, exist_ok=True)
+        os.makedirs(output_dir, exist_ok=True)
         self._render_content_directory(
             name=name,
             desc=desc,
             source_dir=shared_template_dir,
-            output_dir=root_output_dir,
+            output_dir=output_dir,
             type=type,
         )
-        package_root = f"{root_output_dir}/{name}"
+        package_root = f"{output_dir}/{name}"
         os.makedirs(package_root, exist_ok=True)
         self._render_content_directory(
             name=name,
@@ -94,7 +96,7 @@ class NewPackageService(BaseNewService):
             output_dir=package_root,
             type=type,
         )
-        package_test_root = f"{root_output_dir}/tests"
+        package_test_root = f"{output_dir}/tests"
         os.makedirs(package_test_root, exist_ok=True)
         self._render_content_directory(
             name=name,
@@ -103,5 +105,5 @@ class NewPackageService(BaseNewService):
             output_dir=package_test_root,
             type=type,
         )
-        if not os.path.exists(f"{root_output_dir}/.git"):
-            os.system(f"git init {root_output_dir} > /dev/null 2>&1")
+        if not os.path.exists(f"{output_dir}/.git"):
+            os.system(f"git init {output_dir} > /dev/null 2>&1")
