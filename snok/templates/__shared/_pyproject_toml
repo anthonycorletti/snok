@@ -30,6 +30,18 @@ dev = [
     "wheel>=0.36",
 ]
 
+[tool.setuptools.dynamic.version]
+attr = "{{ __template_name }}.__version__"
+
+[tool.setuptools.package-data]
+{{ __template_name }} = ["py.typed"]
+
+[tool.setuptools.dynamic]
+version = {attr = "{{ __template_name }}.__version__"}
+
+[tool.setuptools.packages.find]
+exclude = ["tests"]
+
 [tool.ruff]
 line-length = 88
 ignore = [
@@ -126,6 +138,3 @@ directory = "htmlcov"
 
 [tool.coverage.xml]
 output = "coverage.xml"
-
-[tool.setuptools.dynamic.version]
-attr = "{{ __template_name }}.__version__"

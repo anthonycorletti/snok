@@ -36,9 +36,9 @@ class BaseNewService:
                     relative_path = os.path.relpath(file_path, source_dir)
                     output_path = os.path.join(output_dir, relative_path)
 
-                    if output_path.endswith("_pyproject.toml"):
+                    if output_path.endswith("_pyproject_toml"):
                         output_path = output_path.replace(
-                            "_pyproject.toml", "pyproject.toml"
+                            "_pyproject_toml", "pyproject.toml"
                         )
 
                     _basename = os.path.basename(relative_path)
