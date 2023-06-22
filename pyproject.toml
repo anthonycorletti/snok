@@ -57,6 +57,15 @@ Documentation = "https://snok.corletti.xyz"
 [project.scripts]
 snok = "snok.cli:app"
 
+[tool.setuptools.package-data]
+snok = ["py.typed", "templates/**/*"]
+
+[tool.setuptools.dynamic]
+version = {attr = "snok.__version__"}
+
+[tool.setuptools.packages.find]
+exclude = ["tests"]
+
 [tool.ruff]
 line-length = 88
 ignore = [
@@ -168,6 +177,3 @@ directory = "htmlcov"
 
 [tool.coverage.xml]
 output = "coverage.xml"
-
-[tool.setuptools.dynamic.version]
-attr = "snok.__version__"
