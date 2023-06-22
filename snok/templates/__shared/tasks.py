@@ -159,7 +159,7 @@ def clean(ctx: Context) -> None:
 
 
 @task(iterable=["dependency_groups"], aliases=["i"], optional=["dependency_groups"])
-def install(ctx: Context, dependency_groups: Optional[List[str]]) -> None:
+def install(ctx: Context, dependency_groups: Optional[List[str]] = None) -> None:
     """install
 
     Install dependencies.
@@ -198,7 +198,7 @@ def install(ctx: Context, dependency_groups: Optional[List[str]]) -> None:
 
 @task(iterable=["packages"], post=[install], optional=["dependency_group_name"])
 def add(
-    ctx: Context, packages: List[str], dependency_group_name: Optional[str]
+    ctx: Context, packages: List[str], dependency_group_name: Optional[str] = None
 ) -> None:
     """add
 
@@ -213,7 +213,7 @@ def add(
 
 @task(iterable=["packages"], aliases=["rm"], optional=["dependency_group_name"])
 def remove(
-    ctx: Context, packages: List[str], dependency_group_name: Optional[str]
+    ctx: Context, packages: List[str], dependency_group_name: Optional[str] = None
 ) -> None:
     """remove
 

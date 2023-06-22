@@ -19,6 +19,7 @@ dependencies = [
     "fastapi>=0.97.0",
     "gunicorn>=20.1.0",
     "invoke>=2.0.0",
+    "jinja2>=3.1.2",
     "mypy>=0.910",
     "packaging>=21.0",
     "pre-commit>=2.17.0",
@@ -127,7 +128,7 @@ exclude = [
     "dist",
     "build",
     ".venv",
-    "snok/templates/*"
+    "snok/templates/*",
 ]
 
 [tool.ruff.pydocstyle]
