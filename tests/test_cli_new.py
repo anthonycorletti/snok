@@ -12,6 +12,7 @@ def test_new_package(cli_runner: CliRunner, setup_test_project_dir: str) -> None
         ["new", "test_package", "-o", setup_test_project_dir],
     )
     assert response.exit_code == 0
+    print(os.listdir(setup_test_project_dir))
     # assert the output directory exists
     for path in [
         f"{setup_test_project_dir}/test_package",
@@ -20,6 +21,7 @@ def test_new_package(cli_runner: CliRunner, setup_test_project_dir: str) -> None
         f"{setup_test_project_dir}/README.md",
         f"{setup_test_project_dir}/setup.cfg",
         f"{setup_test_project_dir}/pyproject.toml",
+        f"{setup_test_project_dir}/.gitignore",
         f"{setup_test_project_dir}/test_package/__init__.py",
         f"{setup_test_project_dir}/test_package/main.py",
         f"{setup_test_project_dir}/tests/__init__.py",

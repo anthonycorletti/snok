@@ -35,10 +35,20 @@ class BaseNewService:
                     file_path = os.path.join(root, file)
                     relative_path = os.path.relpath(file_path, source_dir)
                     output_path = os.path.join(output_dir, relative_path)
+
                     if output_path.endswith("_pyproject.toml"):
                         output_path = output_path.replace(
                             "_pyproject.toml", "pyproject.toml"
                         )
+
+                    _basename = os.path.basename(relative_path)
+                    if _basename.startswith("_.") and not _basename.endswith(".py"):
+                        _newbasename = _basename.replace("_.", ".")
+                        output_path = os.path.join(
+                            output_dir,
+                            relative_path.replace(_basename, _newbasename),
+                        )
+
                     self._render_content_file(
                         name=name,
                         desc=desc,
