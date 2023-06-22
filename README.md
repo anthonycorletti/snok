@@ -64,7 +64,7 @@ Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) an
 
 ## ⚙️ Installation
 
-After you've created your Python 3.11+ virtual environment, install Snok with:
+After you've created your Python 3.11+ virtual environment in a new directory, install Snok:
 
 ```sh
 pip install snok
@@ -75,7 +75,7 @@ pip install snok
 Create a new package with:
 
 ```sh
-snok new mypackage && cd mypackage
+snok new mypackage
 ```
 
 Snok uses `invoke` to manage tasks, like installing dependencies, running tests, and more.
