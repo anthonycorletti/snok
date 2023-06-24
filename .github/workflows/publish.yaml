@@ -31,11 +31,11 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache-dependency-path: "pyproject.toml"
 
-      - name: install invoke
-        run: pip install invoke
+      - name: install
+        run: pip install build
 
       - name: build
-        run: inv build
+        run: python -m build
 
       - name: publish
         uses: pypa/gh-action-pypi-publish@release/v1

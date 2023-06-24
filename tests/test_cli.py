@@ -6,13 +6,19 @@ from snok import __version__
 from snok.cli import app
 
 
-def test_new_package(cli_runner: CliRunner, setup_test_project_dir: str) -> None:
+def test_version(cli_runner: CliRunner) -> None:
+    response = cli_runner.invoke(app, ["version"])
+    assert response.exit_code == 0
+    assert response.stdout == __version__
+
+
+def test_new_package_setup(cli_runner: CliRunner, setup_test_project_dir: str) -> None:
     response = cli_runner.invoke(
         app,
         ["new", "test_package", "-o", setup_test_project_dir],
     )
     assert response.exit_code == 0
-    print(os.listdir(setup_test_project_dir))
+
     # assert the output directory exists
     for path in [
         f"{setup_test_project_dir}/test_package",
@@ -29,9 +35,3 @@ def test_new_package(cli_runner: CliRunner, setup_test_project_dir: str) -> None
         f"{setup_test_project_dir}/tests/test_version.py",
     ]:
         assert os.path.exists(path)
-
-
-def test_version(cli_runner: CliRunner) -> None:
-    response = cli_runner.invoke(app, ["version"])
-    assert response.exit_code == 0
-    assert response.stdout == __version__

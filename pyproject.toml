@@ -18,7 +18,7 @@ dependencies = [
     "coverage>=6.1.1",
     "fastapi>=0.97.0",
     "gunicorn>=20.1.0",
-    "invoke>=2.0.0",
+    "httpx>=0.24.1",
     "jinja2>=3.1.2",
     "mypy>=0.910",
     "packaging>=21.0",
@@ -27,11 +27,13 @@ dependencies = [
     "pytest-cov>=3.0.0",
     "pytest-xdist>=3.3.1",
     "pytest>=6.2.5",
+    "requests>=2.26.0",
     "rich>=10.12.0",
     "ruff>=0.0.98",
     "setuptools>=67.8.0",
     "toml>=0.10.2",
     "typer>=0.7.0",
+    "types-requests>=2.26.0",
     "types-toml>=0.1.0",
     "uvicorn>=0.15.0",
     "wheel>=0.36",
@@ -45,9 +47,10 @@ text = "MIT"
 
 [project.optional-dependencies]
 dev = [
+    "invoke>=1.6.0",
     "mdx-include>=1.4.2",
-    "mkdocs>=1.4.2",
     "mkdocs-material>=9.1.5",
+    "mkdocs>=1.4.2",
 ]
 
 [project.urls]
@@ -57,14 +60,11 @@ Documentation = "https://snok.corletti.xyz"
 [project.scripts]
 snok = "snok.cli:app"
 
-[tool.setuptools.package-data]
-snok = ["py.typed", "templates/**/*"]
-
-[tool.setuptools.dynamic]
-version = {attr = "snok.__version__"}
-
-[tool.setuptools.packages.find]
-exclude = ["tests"]
+[tool.snok]
+sources = [
+    "snok",
+    "tests",
+]
 
 [tool.ruff]
 line-length = 88
@@ -129,10 +129,6 @@ force-exclude = '''
 [tool.mypy]
 ignore_missing_imports = true
 disallow_untyped_defs = true
-mypy_path = [
-    "snok",
-    "tests",
-]
 exclude = [
     "dist",
     "build",
@@ -142,6 +138,12 @@ exclude = [
 
 [tool.ruff.pydocstyle]
 convention = "google"
+
+[tool.setuptools.package-data]
+snok = [
+    "py.typed",
+    "templates/**/*",
+]
 
 [tool.pytest.ini_options]
 addopts = [
@@ -177,3 +179,11 @@ directory = "htmlcov"
 
 [tool.coverage.xml]
 output = "coverage.xml"
+
+[tool.setuptools.dynamic.version]
+attr = "snok.__version__"
+
+[tool.setuptools.packages.find]
+exclude = [
+    "tests",
+]

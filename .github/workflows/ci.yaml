@@ -31,17 +31,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache-dependency-path: "pyproject.toml"
 
-      - name: install invoke
-        run: pip install invoke
-
       - name: install
-        run: inv install
+        run: pip install .
 
       - name: lint
-        run: inv lint
+        run: snok lint
 
       - name: test
-        run: inv test
+        run: snok test
 
       - name: upload coverage
         if: github.ref == 'refs/heads/main'

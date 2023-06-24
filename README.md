@@ -42,18 +42,19 @@ Snok is designed to leverage the best tools and packages that exist in the Pytho
 ## 🎉 Featuring
 
 - Package generation
-- Task management with `invoke`
+- Built-in dependency management
 - Packaging with `setuptools`
-- Linting with `ruff` and `black`
+- Linting and formatting with `ruff` and `black`
 - Type checking with `mypy`
 - Testing with `pytest`
 
 ## 🤩 Coming Soon
 
-- Web application generation with `fastapi` and `htmx`
 - Database integration with `pydantic` and `sqlmodel`
+- Web application generation with `fastapi` and `htmx`
 - Production ready deployment stacks with `nix`, `docker`, `skaffold` and `kustomize`
 - AI framework integrations with `pytorch` and `langchain`
+- Documentation site generation with `mkdocs`
 
 Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) and [pull requests](https://github.com/anthonycorletti/snok/pulls) to see what's coming soon!
 
@@ -78,22 +79,22 @@ Create a new package with:
 snok new mypackage
 ```
 
-Snok uses `invoke` to manage tasks, like installing dependencies, running tests, and more.
-
-```sh
-inv --list
-```
-
 To install dependencies:
 
 ```sh
-inv add fastapi
+snok install
 ```
 
-To uninstall dependencies:
+To add a new dependency:
 
 ```sh
-inv remove fastapi
+snok add fastapi
+```
+
+To remove a dependency:
+
+```sh
+snok remove fastapi
 ```
 
 ## 🫶 How can I help?
