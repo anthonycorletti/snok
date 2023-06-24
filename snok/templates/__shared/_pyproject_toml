@@ -20,6 +20,13 @@ dev = [
     "snok",
 ]
 
+[tool.snok]
+sources = [
+    "{{ __template_name }}",
+    "tests",
+]
+
+
 [tool.setuptools.package-data]
 {{ __template_name }} = ["py.typed"]
 
