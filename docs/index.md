@@ -50,7 +50,7 @@ Snok is designed to leverage the best tools and packages that exist in the Pytho
 
 ## 🤩 Coming Soon
 
-- Database integration with `pydantic` and `sqlmodel`
+- Database integration with `pydantic`, `sqlmodel`, and `alembic`
 - Web application generation with `fastapi` and `htmx`
 - Production ready deployment stacks with `nix`, `docker`, `skaffold` and `kustomize`
 - AI framework integrations with `pytorch` and `langchain`

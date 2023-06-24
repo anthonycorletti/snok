@@ -30,34 +30,36 @@ You should see paths that use the `.venv/bin` in your current working directory.
 
 ## Installing dependencies
 
-This project uses `pip` to manage our project's dependencies and all tasks are managed with `invoke`. Invoke is a python package that allows you to define tasks in a python file and run them from the command line, similar to `make` and `rake`, but with a pythonic syntax.
-
-In your virtual environment, install `invoke` by running;
+For your first ever install of `snok` you will need to run;
 
 ```sh
-pip install invoke
+pip install -e '.[dev]'
 ```
 
-Then to install dependencies, run;
+From then on, you can use `snok` to build `snok`!
 
 ```sh
-inv install
+snok install
+```
+
+```sh
+snok add pendulum
 ```
 
 ## Linting
 
 ```sh
-inv lint
+snok lint
 ```
 
 ## Formatting
 
 ```sh
-inv format
+snok format
 ```
 
 ## Tests
 
 ```sh
-inv test
+snok test
 ```
