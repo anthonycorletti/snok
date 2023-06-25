@@ -65,6 +65,7 @@ class BaseNewService:
         output_path: str,
         type: ProjectType = ProjectType.package,
     ) -> None:
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(source_path, "r") as source_file:
             source_content = source_file.read()
             output_content = Template(source_content).render(
@@ -113,6 +114,62 @@ class NewPackageService(BaseNewService):
             desc=desc,
             source_dir=tests_template_dir,
             output_dir=package_test_root,
+            type=type,
+        )
+        if not os.path.exists(f"{output_dir}/.git"):
+            os.system(f"git init {output_dir} > /dev/null 2>&1")
+
+
+class NewAppService(BaseNewService):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def create(
+        self,
+        name: str,
+        desc: str,
+        output_dir: str,
+        type: ProjectType = ProjectType.app,
+    ) -> None:
+        shared_template_dir = f"{self.root_template_dir}/__shared"
+        app_template_dir = f"{self.root_template_dir}/__{type.value}"
+        app_tests_template_dir = f"{self.root_template_dir}/__{type.value}_tests"
+        app_template_templates_dir = (
+            f"{self.root_template_dir}/__{type.value}_templates"
+        )
+        os.makedirs(output_dir, exist_ok=True)
+        self._render_content_directory(
+            name=name,
+            desc=desc,
+            source_dir=shared_template_dir,
+            output_dir=output_dir,
+            type=type,
+        )
+        app_root = f"{output_dir}/{name}"
+        os.makedirs(app_root, exist_ok=True)
+        self._render_content_directory(
+            name=name,
+            desc=desc,
+            source_dir=app_template_dir,
+            output_dir=app_root,
+            type=type,
+        )
+        app_test_root = f"{output_dir}/tests"
+        os.makedirs(app_test_root, exist_ok=True)
+        self._render_content_directory(
+            name=name,
+            desc=desc,
+            source_dir=app_tests_template_dir,
+            output_dir=app_test_root,
+            type=type,
+        )
+        app_template_root = f"{output_dir}/templates"
+        os.makedirs(app_template_root, exist_ok=True)
+        self._render_content_directory(
+            name=name,
+            desc=desc,
+            source_dir=app_template_templates_dir,
+            output_dir=app_template_root,
             type=type,
         )
         if not os.path.exists(f"{output_dir}/.git"):

@@ -4,8 +4,21 @@ from typing import List, Optional
 from typer import Argument, Exit, Option, Typer, echo
 
 from snok import __version__
-from snok.const import APP_DESC, APP_NAME, BumpType, DepencencyAction, ProjectType
-from snok.services.new import NewPackageService
+from snok.const import (
+    APP_DESC,
+    APP_NAME,
+    BumpType,
+    ContentType,
+    DepencencyAction,
+    ProjectType,
+)
+from snok.services.generator import (
+    _ModelContentGenerator,
+    _RouterContentGenerator,
+    _ScaffoldContentGenerator,
+    _ViewContentGenerator,
+)
+from snok.services.new import NewAppService, NewPackageService
 from snok.utils import (
     _bump_version_string,
     _get_default_output_dir,
@@ -68,6 +81,7 @@ def _new(
 ) -> None:
     new_project_service_dispatcher = {
         ProjectType.package: NewPackageService,
+        ProjectType.app: NewAppService,
     }
     new_project_service = new_project_service_dispatcher[type]()
     new_project_service.create(
@@ -344,3 +358,32 @@ def _bump_version(
             else:
                 f.write(line)
     print(f"New version: {new_version}")
+
+
+@app.command(
+    "g",
+    help="Generate fully tested models, routers, and views.",
+    no_args_is_help=True,
+)
+@app.command(
+    "generate",
+    help="Generate fully tested models, routers, and views.",
+    no_args_is_help=True,
+)
+def _generate(
+    content_type: ContentType = Argument(
+        ...,
+        help="The thing to generate.",
+    ),
+    _input: List[str] = Argument(
+        ...,
+    ),
+) -> None:
+    content_generator_dispatcher = {
+        ContentType.model: _ModelContentGenerator,
+        ContentType.router: _RouterContentGenerator,
+        ContentType.view: _ViewContentGenerator,
+        ContentType.scaffold: _ScaffoldContentGenerator,
+    }
+    content_generator = content_generator_dispatcher[content_type]()
+    content_generator.generate(_input=_input)
