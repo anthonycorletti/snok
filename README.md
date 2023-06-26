@@ -55,6 +55,7 @@ Snok is designed to leverage the best tools and packages that exist in the Pytho
 - Production ready deployment stacks with `nix`, `docker`, `skaffold` and `kustomize`
 - AI framework integrations with `pytorch` and `langchain`
 - Documentation site generation with `mkdocs`
+- Configure and set up monitoring with services like `sentry` and `logz`, or with DIY `opentelemetry`.
 
 Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) and [pull requests](https://github.com/anthonycorletti/snok/pulls) to see what's coming soon!
 
