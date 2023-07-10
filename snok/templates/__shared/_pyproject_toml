@@ -21,6 +21,7 @@ dev = [
 ]
 
 [tool.snok]
+name = "{{ __template_name }}"
 sources = [
     "{{ __template_name }}",
     "tests",
@@ -105,7 +106,7 @@ addopts = [
     "-n",
     "auto",
     "-o",
-    "console_output_style=progress",
+    "console_output_style=progress", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto",
     "--disable-warnings",
     "--showlocals",
     "--cov={{ __template_name }}",

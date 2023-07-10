@@ -7,6 +7,8 @@ from snok import __version__
 from snok.const import (
     APP_DESC,
     APP_NAME,
+    BASE_APP_DEV_PACKAGES,
+    BASE_APP_PACKAGES,
     BumpType,
     ContentType,
     DepencencyAction,
@@ -84,9 +86,14 @@ def _new(
         ProjectType.app: NewAppService,
     }
     new_project_service = new_project_service_dispatcher[type]()
+    echo(f"Creating project {name}...")
     new_project_service.create(
         name=name, desc=description, type=type, output_dir=output_dir
     )
+    if type == ProjectType.app:  # pragma: no cover
+        echo("Adding default packages to your project...")
+        _add(packages=BASE_APP_PACKAGES, dependency_group=None)
+        _add(packages=BASE_APP_DEV_PACKAGES, dependency_group="dev")
 
 
 @app.command(
@@ -171,7 +178,7 @@ def _add(
         ...,
         help="The packages to add.",
     ),
-    dependency_group: str = Option(
+    dependency_group: Optional[str] = Option(
         None,
         "-g",
         "--dependency-group",
@@ -362,6 +369,7 @@ def _bump_version(
 
 @app.command(
     "g",
+    hidden=True,
     help="Generate fully tested models, routers, and views.",
     no_args_is_help=True,
 )
@@ -378,7 +386,7 @@ def _generate(
     _input: List[str] = Argument(
         ...,
     ),
-) -> None:
+) -> None:  # pragma: no cover
     content_generator_dispatcher = {
         ContentType.model: _ModelContentGenerator,
         ContentType.router: _RouterContentGenerator,
@@ -387,3 +395,35 @@ def _generate(
     }
     content_generator = content_generator_dispatcher[content_type]()
     content_generator.generate(_input=_input)
+
+
+@app.command(
+    "s",
+    hidden=True,
+)
+@app.command(
+    "server",
+    help="Run the local dev server.",
+)
+def _server(
+    host: str = Option(
+        "127.0.0.1",
+        "--host",
+        "-h",
+        help="The host to run the server on.",
+    ),
+    port: int = Option(
+        8000,
+        "--port",
+        "-p",
+        help="The port to run the server on.",
+    ),
+) -> None:  # pragma: no cover
+    import uvicorn
+
+    uvicorn.run(
+        f"{_get_project_name()}.server:app",
+        host=host,
+        port=port,
+        reload=True,
+    )

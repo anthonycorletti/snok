@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: sans-serif;
+}
+
+@layer utilities {
+    .section-min-height {
+        min-height: calc(100vh)
+    }
+}

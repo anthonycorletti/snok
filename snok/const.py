@@ -3,6 +3,30 @@ from enum import Enum, unique
 APP_NAME = "snok"
 APP_DESC = "🚀 A simple, modern, full-stack toolkit for Python 🐍"
 PYPROJECT_TOML_FILENAME = "pyproject.toml"
+BASE_APP_PACKAGES = [
+    "alembic",
+    "asyncpg",
+    "fastapi",
+    "greenlet",
+    "gunicorn",
+    "httpx",
+    "itsdangerous",
+    "jinja2",
+    "python-dateutil",
+    "python-dotenv",
+    "python-multipart",
+    "rich",
+    "sqlmodel",
+    "structlog",
+    "uvicorn",
+]
+
+BASE_APP_DEV_PACKAGES = [
+    "asgi-lifespan",
+    "coverage",
+    "pytest-asyncio",
+    "watchfiles",
+]
 
 
 @unique
