@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import Dict, List, Optional
 
@@ -30,7 +31,7 @@ class RequestLoggerMessage(BaseModel):
 class ResponseLoggerMessage(BaseModel):
     status_code: StrictInt
     raw_headers: List
-    body: Optional[bytes]
+    body: Optional[bytes] | Optional[Dict]
 
     @root_validator(pre=True)
     def _validate_body_as_json(cls, values: Dict) -> Dict:
@@ -38,7 +39,7 @@ class ResponseLoggerMessage(BaseModel):
         for header in _headers:
             if header[0].decode("utf8") == "content-type":
                 if header[1].decode("utf-8") == "application/json":
-                    values["body"] = Json(values["body"])
+                    values["body"] = json.loads(values["body"])
                 else:
                     values["body"] = None
         return values

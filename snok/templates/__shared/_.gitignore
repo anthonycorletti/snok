@@ -139,12 +139,20 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# Node
+node_modules/
+
+# Lock files
 *.lock
 
+# Temporary files
 tmp/
 
+# Wheels
 *.whl
 
+# Ruff
 .ruff_cache/
 
+# Python version
 .python-version

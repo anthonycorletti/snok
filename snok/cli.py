@@ -426,4 +426,8 @@ def _server(
         host=host,
         port=port,
         reload=True,
+        reload_includes=[
+            "*.html",
+            "*.css",
+        ],
     )

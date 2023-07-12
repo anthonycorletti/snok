@@ -66,6 +66,11 @@ class BaseNewService:
                         b = os.path.basename(output_path)
                         output_path = output_path.replace(f"{name}/{b}", b)
 
+                    if output_path.endswith("tailwind.config.js"):
+                        output_path = output_path.replace(
+                            "static/tailwind.config.js", "tailwind.config.js"
+                        )
+
                     _basename = os.path.basename(relative_path)
                     if _basename.startswith("_.") and not _basename.endswith(".py"):
                         _newbasename = _basename.replace("_.", ".")
@@ -79,7 +84,6 @@ class BaseNewService:
                         desc=desc,
                         source_path=file_path,
                         output_path=output_path,
-                        type=type,
                     )
 
     def _render_content_file(
@@ -88,20 +92,27 @@ class BaseNewService:
         desc: str,
         source_path: str,
         output_path: str,
-        type: ProjectType = ProjectType.package,
     ) -> None:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
-        with open(source_path, "r") as source_file:
-            source_content = source_file.read()
-            with open(output_path, "w") as output_file:
-                output_file.write(
-                    self._render_output_content_string(
-                        source_path=source_path,
-                        source_content=source_content,
-                        name=name,
-                        desc=desc,
+        if self._file_is_image_file(file_path=source_path):
+            with open(source_path, "rb") as source_file:
+                with open(output_path, "wb") as output_file:
+                    output_file.write(source_file.read())
+        else:
+            with open(source_path, "r") as source_file:
+                source_content = source_file.read()
+                with open(output_path, "w") as output_file:
+                    output_file.write(
+                        self._render_output_content_string(
+                            source_path=source_path,
+                            source_content=source_content,
+                            name=name,
+                            desc=desc,
+                        )
                     )
-                )
+
+    def _file_is_image_file(self, file_path: str) -> bool:
+        return os.path.splitext(file_path)[1] in [".png", ".jpg", ".jpeg", ".gif"]
 
     def _render_output_content_string(
         self, source_path: str, source_content: str, name: str, desc: str
