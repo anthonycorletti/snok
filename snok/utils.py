@@ -196,3 +196,11 @@ def _bump_version_string(
     else:
         v = Version(f"{v.major}.{v.minor}.{v.micro + 1}")
     return str(v)
+
+
+def _install_node_module_requirements() -> None:  # pragma: no cover
+    _run_cmd(
+        " ".join(
+            ["npm", "install", "-D", "tailwindcss", "@tailwindcss/forms", "prettier"]
+        )
+    )

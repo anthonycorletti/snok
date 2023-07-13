@@ -1,4 +1,5 @@
 import importlib
+from multiprocessing import Process
 from typing import List, Optional
 
 from typer import Argument, Exit, Option, Typer, echo
@@ -25,6 +26,7 @@ from snok.utils import (
     _bump_version_string,
     _get_default_output_dir,
     _get_project_name,
+    _install_node_module_requirements,
     _run_cmd,
     _snok_sources,
     _update_pyproject_toml,
@@ -91,9 +93,10 @@ def _new(
         name=name, desc=description, type=type, output_dir=output_dir
     )
     if type == ProjectType.app:  # pragma: no cover
-        echo("Adding default packages to your project...")
-        _add(packages=BASE_APP_PACKAGES, dependency_group=None)
+        echo("Adding project dependencies...")
+        _add(packages=BASE_APP_PACKAGES, dependency_group=None, install=False)
         _add(packages=BASE_APP_DEV_PACKAGES, dependency_group="dev")
+        _install_node_module_requirements()
 
 
 @app.command(
@@ -184,13 +187,20 @@ def _add(
         "--dependency-group",
         help="The dependency group to add the packages to. Defaults to None.",
     ),
+    install: bool = Option(
+        True,
+        "-i",
+        "--install",
+        help="Install the packages after adding them. Defaults to True.",
+    ),
 ) -> None:  # pragma: no cover
     _update_pyproject_toml(
         packages=packages,
         dependency_action=DepencencyAction.add,
         dependency_group_name=dependency_group,
     )
-    _install(dependency_groups=[dependency_group] if dependency_group else ["all"])
+    if install:
+        _install(dependency_groups=[dependency_group] if dependency_group else ["all"])
 
 
 @app.command(
@@ -209,6 +219,12 @@ def _remove(
         "--dependency-group",
         help="The dependency group to remove the packages from. Defaults to None.",
     ),
+    install: bool = Option(
+        True,
+        "-i",
+        "--install",
+        help="Install the packages after removing them. Defaults to True.",
+    ),
 ) -> None:  # pragma: no cover
     _update_pyproject_toml(
         packages=packages,
@@ -218,7 +234,8 @@ def _remove(
     _run_cmd(
         f"pip uninstall -y {' '.join(packages)}",
     )
-    _install(dependency_groups=[dependency_group] if dependency_group else ["all"])
+    if install:
+        _install(dependency_groups=[dependency_group] if dependency_group else ["all"])
 
 
 @app.command(
@@ -421,6 +438,17 @@ def _server(
 ) -> None:  # pragma: no cover
     import uvicorn
 
+    p = Process(
+        name="npx_tailwindcss",
+        target=_run_cmd,
+        kwargs={
+            "cmd": "npx tailwindcss -i ./static/css/input.css"
+            " -o ./static/css/tailwind.css --watch"
+        },
+        daemon=True,
+    )
+    p.start()
+
     uvicorn.run(
         f"{_get_project_name()}.server:app",
         host=host,
@@ -431,3 +459,5 @@ def _server(
             "*.css",
         ],
     )
+
+    p.join()
