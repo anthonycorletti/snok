@@ -49,7 +49,7 @@ main_callback.__doc__ = APP_NAME
 
 @app.command("version")
 def _version() -> None:
-    """Prints the version."""
+    """Prints the version of snok."""
     echo(__version__, nl=False)
 
 
@@ -439,7 +439,7 @@ def _server(
     import uvicorn
 
     p = Process(
-        name="npx_tailwindcss",
+        name="snok_npx_tailwindcss",
         target=_run_cmd,
         kwargs={
             "cmd": "npx tailwindcss -i ./static/css/input.css"

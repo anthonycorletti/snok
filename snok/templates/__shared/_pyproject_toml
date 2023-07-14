@@ -106,7 +106,7 @@ addopts = [
     "-n",
     "auto",
     "-o",
-    "console_output_style=progress",
+    "console_output_style=progress", "--asyncio-mode=auto",
     "--disable-warnings",
     "--showlocals",
     "--cov={{ __template_name }}",
