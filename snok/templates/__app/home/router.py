@@ -2,15 +2,15 @@ from fastapi import APIRouter, Request, Response
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from {{__template_name}}.utils.routers import _APIRoute
+from {{ __template_name }}.kit.routers import _APIRoute
 
-templates = Jinja2Templates(
-    directory="templates",
+views = Jinja2Templates(
+    directory="views"
 )
 
 router = APIRouter(
     route_class=_APIRoute,
-    tags=["views"],
+    tags=["home"]
 )
 
 
@@ -19,7 +19,7 @@ router = APIRouter(
     response_class=HTMLResponse,
 )
 async def _index(request: Request) -> Response:
-    return templates.TemplateResponse(
+    return views.TemplateResponse(
         name="index.html",
         context={"request": request},
     )
@@ -30,7 +30,7 @@ async def _index(request: Request) -> Response:
     response_class=HTMLResponse,
 )
 async def _not_found(request: Request) -> Response:
-    return templates.TemplateResponse(
+    return views.TemplateResponse(
         name="404.html",
         context={"request": request},
     )

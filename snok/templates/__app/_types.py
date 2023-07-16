@@ -1,14 +1,7 @@
 import json
-from datetime import datetime
 from typing import Dict, List, Optional
 
 from pydantic import BaseModel, Json, StrictInt, StrictStr, root_validator
-
-
-class HealthResponse(BaseModel):
-    message: StrictStr
-    version: StrictStr
-    time: datetime
 
 
 class Scope(BaseModel):

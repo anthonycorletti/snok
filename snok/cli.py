@@ -356,6 +356,7 @@ def _ok() -> None:  # pragma: no cover
     _format()
     _lint()
     _test()
+    echo("it's ok")
 
 
 @app.command("bump-version", help="Bump the version.")
@@ -450,7 +451,7 @@ def _server(
     p.start()
 
     uvicorn.run(
-        f"{_get_project_name()}.server:app",
+        f"{_get_project_name()}.app:app",
         host=host,
         port=port,
         reload=True,

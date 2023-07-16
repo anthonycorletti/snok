@@ -8,7 +8,6 @@ BASE_APP_PACKAGES = [
     "asyncpg",
     "fastapi",
     "greenlet",
-    "gunicorn",
     "httpx",
     "itsdangerous",
     "jinja2",

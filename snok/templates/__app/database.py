@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 from sqlmodel.ext.asyncio.session import AsyncSession
 
-from {{ __template_name }}.settings import settings
+from {{ __template_name }}.config import settings
 
 
 def _override_db_url_for_distributed_testing() -> None:

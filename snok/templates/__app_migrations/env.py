@@ -10,7 +10,7 @@ from sqlmodel import SQLModel
 from sqlmodel.ext.asyncio.session import AsyncEngine
 
 from alembic import context
-from {{ __template_name }}.settings import settings
+from {{ __template_name }}.config import settings
 from {{ __template_name }}.models import *  # noqa
 
 # configure local env setup

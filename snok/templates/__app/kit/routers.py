@@ -3,7 +3,7 @@ from typing import Callable
 from uuid import uuid4
 
 from {{ __template_name }}._types import RequestLoggerMessage, ResponseLoggerMessage, Scope
-from {{ __template_name }}.log import log
+from {{ __template_name }}.logger import log
 from fastapi import Request, Response
 from fastapi.routing import APIRoute
 

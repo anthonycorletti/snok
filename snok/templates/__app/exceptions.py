@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from {{ __template_name }}.log import log
+from {{ __template_name }}.logger import log
 from fastapi import HTTPException, Request
 from fastapi.responses import RedirectResponse
 

@@ -13,9 +13,9 @@ from sqlmodel import SQLModel
 from sqlmodel.ext.asyncio.session import AsyncSession
 
 from {{ __template_name }}.database import async_db_engine
-from {{ __template_name }}.log import log
-from {{ __template_name }}.server import app
-from {{ __template_name }}.settings import settings
+from {{ __template_name }}.logger import log
+from {{ __template_name }}.app import app
+from {{ __template_name }}.config import settings
 
 TEST_BASE_URL = "http://testserver:8001"
 

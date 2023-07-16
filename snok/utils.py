@@ -14,6 +14,11 @@ def _get_default_output_dir() -> str:
     return os.path.dirname(os.getenv("VIRTUAL_ENV", os.getcwd()))
 
 
+def _get_snok_path() -> str:
+    """Returns the path to the snok package."""
+    return os.path.dirname(os.path.abspath(__file__))
+
+
 def _run_cmd(
     cmd: str,
     check: bool = True,

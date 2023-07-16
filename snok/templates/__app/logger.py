@@ -1,7 +1,7 @@
 import logging
 
 import structlog
-from {{ __template_name }}.settings import settings
+from {{ __template_name }}.config import settings
 
 
 def _configure_root_logger() -> None:

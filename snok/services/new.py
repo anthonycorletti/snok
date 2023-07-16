@@ -54,7 +54,7 @@ class BaseNewService:
 
                     if output_path.endswith("alembic.ini"):
                         output_path = output_path.replace(
-                            "alembic/alembic.ini", "alembic.ini"
+                            "migrations/alembic.ini", "alembic.ini"
                         )
 
                     if output_path.endswith("py.typed"):
@@ -193,10 +193,10 @@ class NewAppService(BaseNewService):
         shared_template_dir = f"{self.root_template_dir}/__shared"
         app_template_dir = f"{self.root_template_dir}/__{type.value}"
         app_tests_template_dir = f"{self.root_template_dir}/__{type.value}_tests"
-        app_alembic_templates_dir = f"{self.root_template_dir}/__{type.value}_alembic"
-        app_template_templates_dir = (
-            f"{self.root_template_dir}/__{type.value}_templates"
+        app_migrations_templates_dir = (
+            f"{self.root_template_dir}/__{type.value}_migrations"
         )
+        app_views_templates_dir = f"{self.root_template_dir}/__{type.value}_views"
         app_static_templates_dir = f"{self.root_template_dir}/__{type.value}_static"
         os.makedirs(output_dir, exist_ok=True)
         self._render_content_directory(
@@ -224,22 +224,22 @@ class NewAppService(BaseNewService):
             output_dir=app_test_root,
             type=type,
         )
-        app_alembic_root = f"{output_dir}/alembic"
-        os.makedirs(app_alembic_root, exist_ok=True)
+        app_migrations_root = f"{output_dir}/migrations"
+        os.makedirs(app_migrations_root, exist_ok=True)
         self._render_content_directory(
             name=name,
             desc=desc,
-            source_dir=app_alembic_templates_dir,
-            output_dir=app_alembic_root,
+            source_dir=app_migrations_templates_dir,
+            output_dir=app_migrations_root,
             type=type,
         )
-        app_template_root = f"{output_dir}/templates"
-        os.makedirs(app_template_root, exist_ok=True)
+        app_views_root = f"{output_dir}/views"
+        os.makedirs(app_views_root, exist_ok=True)
         self._render_content_directory(
             name=name,
             desc=desc,
-            source_dir=app_template_templates_dir,
-            output_dir=app_template_root,
+            source_dir=app_views_templates_dir,
+            output_dir=app_views_root,
             type=type,
         )
         app_template_root = f"{output_dir}/static"
