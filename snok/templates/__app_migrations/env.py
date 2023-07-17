@@ -6,12 +6,11 @@ from sqlalchemy.engine.base import Connection
 
 from sqlalchemy import create_engine
 from sqlalchemy import pool
-from sqlmodel import SQLModel
 from sqlmodel.ext.asyncio.session import AsyncEngine
 
 from alembic import context
 from {{ __template_name }}.config import settings
-from {{ __template_name }}.models import *  # noqa
+from {{ __template_name }}.models import Model
 
 # configure local env setup
 os.environ["TZ"] = "UTC"
@@ -30,24 +29,16 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = SQLModel.metadata
+target_metadata = Model.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-target_metadata.naming_convention = {
-    "ix": "ix_%(column_0_label)s",
-    "uq": "uq_%(table_name)s_%(column_0_name)s",
-    "ck": "ck_%(table_name)s_%(constraint_name)s",
-    "fk": "fk_%(table_name)s_%(column_0_name)" "s_%(referred_table_name)s",
-    "pk": "pk_%(table_name)s",
-}
-
 
 def get_url() -> str:
-    url = settings.DATABASE_URL
+    url = settings.DB_URL
     if not url:
         raise ValueError("database url is not set")
     return url

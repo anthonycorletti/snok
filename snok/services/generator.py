@@ -1,4 +1,5 @@
-from typing import Any
+import os
+from typing import Any, List
 
 from jinja2 import Template
 
@@ -26,7 +27,7 @@ class _ModelContentGenerator(_BaseContentGenerator):
         "Missing input. Please provide a model name and fields."
         " For example: snok generate model user name:str email:str"
     )
-    BASE_FIELD_TYPES = ["str", "int", "float", "bool", "datetime", "date", "time"]
+    BASE_FIELD_TYPES = ["str", "int", "float", "bool", "datetime"]
 
     def _validate_field_types(self, fields: Any) -> None:
         field_set = set(fields)
@@ -49,29 +50,48 @@ class _ModelContentGenerator(_BaseContentGenerator):
         _input = kwargs.get("_input")
         if not _input:
             raise ValueError(self.MISSING_INPUT_ERROR)
-        _model_name, fields = _input[0].lower(), _input[1:]
-        _plural_model_name = self._pluralize_name(_model_name)
+        namespace, fields = _input[0].lower(), _input[1:]
+        _plural_namespace = self._pluralize_name(namespace)
         self._validate_field_types(fields)
-        self._write_model_to_models_py(
-            model_name=_model_name, plural_model_name=_plural_model_name, fields=fields
+        _fields = [field.split(":") for field in fields]
+        self._write_model_to_models(
+            namespace=namespace, plural_namespace=_plural_namespace, fields=_fields
         )
+        self._update_models_init_file(plural_namespace=_plural_namespace)
 
-    def _write_model_to_models_py(
-        self, model_name: str, plural_model_name: str, fields: Any
+    def _write_model_to_models(
+        self, namespace: str, plural_namespace: str, fields: List[List[str]]
     ) -> None:
-        models_py_filename = f"{_get_project_name()}/models.py"
-        with open(models_py_filename, "a") as models_py:
-            models_py.write(f"\n\nclass Base{model_name.capitalize()}(SQLModel):\n")
-            for field in fields:
-                field_name, field_type = field.split(":")
-                models_py.write(f"    {field_name.lower()}: {field_type.lower()}\n")
+        models_dir = f"{_get_project_name()}/models"
+        model_filename = f"{models_dir}/{plural_namespace}.py"
+        model_template_file = _get_snok_path() + "/templates/__app_models/model.py"
+        content = Template(open(model_template_file).read()).render(
+            __template_name=_get_project_name(),
+            __template_namespace=namespace,
+            __template_plural_namespace=plural_namespace,
+            __template_plural_namespace_caps=plural_namespace.capitalize(),
+            __template_fields=fields,
+        )
+        with open(model_filename, "w") as f:
+            f.write(content)
 
-            models_py.write(
-                f"\n\nclass {model_name.capitalize()}("
-                f"Base{model_name.capitalize()}, TimestampsMixin, UUIDMixin, table=True"
-                f"):\n"
-            )
-            models_py.write(f"    __tablename__ = '{plural_model_name}'\n")
+    def _update_models_init_file(self, plural_namespace: str) -> None:
+        models_dir = f"{_get_project_name()}/models"
+        init_filename = f"{models_dir}/__init__.py"
+        import_statement = (
+            f"from {_get_project_name()}.models.{plural_namespace}"
+            f" import {plural_namespace.capitalize()}\n"
+        )
+        with open(init_filename, "r") as f:
+            lines = f.readlines()
+        with open(init_filename, "w") as f:
+            for line in lines:
+                if line.startswith("__all__"):
+                    f.write(line.replace("__all__", f"{import_statement}\n__all__"))
+                elif line.startswith("]"):
+                    f.write(line.replace("]", f'"{plural_namespace.capitalize()}",\n]'))
+                else:
+                    f.write(line)
 
 
 class _RouterContentGenerator(_BaseContentGenerator):
@@ -84,17 +104,38 @@ class _RouterContentGenerator(_BaseContentGenerator):
                 "Missing input. Please provide a router name and routes."
                 " For example: snok generate router myrouter route1 route2 route3"
             )
-        router_name, routes = _input[0].lower(), _input[1:]
-        print(router_name, routes)
-        router_filename = f"{_get_project_name()}/routers/{router_name}.py"
+        namespace, routes = _input[0].lower(), _input[1:]
+        os.makedirs(f"{_get_project_name()}/{namespace}", exist_ok=True)
+        router_filename = f"{_get_project_name()}/{namespace}/router.py"
         router_template_file = _get_snok_path() + "/templates/__app_router/router.py"
         content = Template(open(router_template_file).read()).render(
             __template_name=_get_project_name(),
-            __template_router_name=router_name,
+            __template_router_name=namespace,
             __template_router_routes=routes,
         )
         with open(router_filename, "w") as router_py:
             router_py.write(content)
+
+        # update routers.py with import statement
+        routers_file = f"{_get_project_name()}/router.py"
+        import_statement = (
+            f"from {_get_project_name()}.{namespace}.router"
+            f" import router as {namespace}_router\n"
+        )
+        with open(routers_file, "r") as f:
+            lines = f.readlines()
+        with open(routers_file, "w") as f:
+            for line in lines:
+                if line.startswith("router = APIRouter(\n"):
+                    f.write(
+                        line.replace(
+                            "router = APIRouter(\n",
+                            f"{import_statement}\n\nrouter = APIRouter(\n",
+                        )
+                    )
+                else:
+                    f.write(line)
+            f.write(f"router.include_router(router={namespace}_router)\n")
 
 
 class _ViewContentGenerator(_BaseContentGenerator):

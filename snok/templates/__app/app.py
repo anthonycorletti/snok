@@ -73,17 +73,17 @@ def generate_unique_openapi_id(route: APIRoute) -> str:
 
 def create_app() -> FastAPI:
     app = FastAPI(
-        name="{{ __template_name }}",
+        title="{{ __template_name }}",
         version=__version__,
         exception_handlers=exception_handlers,
         generate_unique_id_function=generate_unique_openapi_id
     )
 
-    configure_cors(app)
-    add_session_middleware(app)
     mount_directories(app)
-    add_http_middleware(app)
     configure_events(app)
+    configure_cors(app)
+    add_http_middleware(app)
+    add_session_middleware(app)
 
     app.include_router(health_router)
     app.include_router(router)

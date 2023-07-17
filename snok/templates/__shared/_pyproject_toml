@@ -106,7 +106,7 @@ addopts = [
     "-n",
     "auto",
     "-o",
-    "console_output_style=progress", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto",
+    "console_output_style=progress", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto", "--asyncio-mode=auto",
     "--disable-warnings",
     "--showlocals",
     "--cov={{ __template_name }}",
