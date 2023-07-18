@@ -7,7 +7,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.sessions import SessionMiddleware
-import structlog
 
 from {{ __template_name }} import __version__
 from {{ __template_name }}.const import LOCAL_DOMAINS, ORIGINS, EXTRA_ORIGINS
