@@ -8,7 +8,7 @@ from {{ __template_name }}.kit.routers import _APIRoute
 
 router = APIRouter(
     route_class=_APIRoute,
-    tags=["livez"],
+    tags=["health"],
 )
 
 

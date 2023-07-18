@@ -19,7 +19,6 @@ from snok.services.generator import (
     _ModelContentGenerator,
     _RouterContentGenerator,
     _ScaffoldContentGenerator,
-    _ViewContentGenerator,
 )
 from snok.services.new import NewAppService, NewPackageService
 from snok.utils import (
@@ -408,7 +407,6 @@ def _generate(
     content_generator_dispatcher = {
         ContentType.model: _ModelContentGenerator,
         ContentType.router: _RouterContentGenerator,
-        ContentType.view: _ViewContentGenerator,
         ContentType.scaffold: _ScaffoldContentGenerator,
     }
     content_generator = content_generator_dispatcher[content_type]()
