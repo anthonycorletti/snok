@@ -148,3 +148,16 @@ class _ScaffoldContentGenerator(_BaseContentGenerator):
     def generate(self, *args: Any, **kwargs: Any) -> Any:
         print("Scaffolding...")
         print(args, kwargs)
+        _input = kwargs.get("_input")
+        if not _input:
+            raise ValueError(
+                "Missing input. Please provide a model name and fields."
+                " For example: snok generate scaffold person name:str age:int"
+            )
+        mcg = _ModelContentGenerator()
+        mcg.generate(*args, **kwargs)
+
+        # TODO: generate schemas
+        # TODO: generate services
+        # TODO: generate views
+        # TODO: generate router
