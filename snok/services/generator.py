@@ -135,7 +135,7 @@ class _RouterContentGenerator(_BaseContentGenerator):
                     )
                 else:
                     f.write(line)
-            f.write(f"router.include_router(router={namespace}_router)\n")
+            f.write(f"\nrouter.include_router(router={namespace}_router)\n")
 
 
 class _ViewContentGenerator(_BaseContentGenerator):
@@ -157,7 +157,11 @@ class _ScaffoldContentGenerator(_BaseContentGenerator):
         mcg = _ModelContentGenerator()
         mcg.generate(*args, **kwargs)
 
-        # TODO: generate schemas
-        # TODO: generate services
-        # TODO: generate views
+        namespace, fields = _input[0].lower(), _input[1:]
+        _plural_namespace = self._pluralize_name(namespace)
+        self._validate_field_types(fields)
+
         # TODO: generate router
+        # TODO: generate services
+        # TODO: generate schemas
+        # TODO: generate views

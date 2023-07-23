@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from {{ __template_name }}.home.router import router as home_router
+from {{ __template_name }}.home.views import router as home_router
 from {{ __template_name }}.kit.routers import _APIRoute
 
 router = APIRouter(

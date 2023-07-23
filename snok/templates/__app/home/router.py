@@ -2,14 +2,11 @@ from fastapi import APIRouter, Request, Response
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
-from {{ __template_name }}.kit.routers import _APIRoute
-
 views = Jinja2Templates(
     directory="views"
 )
 
 router = APIRouter(
-    route_class=_APIRoute,
     tags=["home"]
 )
 
