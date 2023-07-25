@@ -47,11 +47,20 @@ class BaseNewService:
                                 if "--asyncio-mode=auto" not in content:
                                     content = content.replace(
                                         '"console_output_style=progress"',
-                                        '"console_output_style=progress"'
+                                        '"console_output_style=progress"\n'
                                         ', "--asyncio-mode=auto"',
                                     )
-                            with open(output_path, "w") as f:
+                            tmp_file = file_path + ".tmp"
+                            with open(tmp_file, "w") as f:
                                 f.write(content)
+                            self._render_content_file(
+                                name=name,
+                                desc=desc,
+                                source_path=tmp_file,
+                                output_path=output_path,
+                            )
+                            os.remove(tmp_file)
+                            continue
 
                     if output_path.endswith("alembic.ini"):
                         output_path = output_path.replace(

@@ -46,7 +46,7 @@ async def test_delete_{{ __template_plural_namespace }}(client: AsyncClient) -> 
     response = await client.delete(f"{API_V0}/{{ __template_plural_namespace }}/{_id}")
     assert response.status_code == 204
     response = await client.get(
-        f"/{{ __template_plural_namespace }}/{_id}", headers={"accept": "application/json"}
+        f"{API_V0}/{{ __template_plural_namespace }}/{_id}", headers={"accept": "application/json"}
     )
     assert response.status_code == 404
 
