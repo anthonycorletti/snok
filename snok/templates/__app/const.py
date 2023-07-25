@@ -8,7 +8,7 @@ TEMPLATES_PATH = PARENT / "templates"
 ORIGINS: List = []
 LOCAL_DOMAINS: List = ["localhost","127.0.0.1"]
 EXTRA_ORIGINS = ["http://localhost", "http://127.0.0.1", "http://localhost:8000", "http://127.0.0.1:8000"]
-
+API_V0 = "/api/v0"
 
 @unique
 class ENV(str, Enum):

@@ -48,8 +48,7 @@ class _ModelContentGenerator(_BaseContentGenerator):
 
     def generate(self, *args: Any, **kwargs: Any) -> Any:
         _input = kwargs.get("_input")
-        if not _input:
-            raise ValueError(self.MISSING_INPUT_ERROR)
+        assert _input is not None, self.MISSING_INPUT_ERROR
         namespace, fields = _input[0].lower(), _input[1:]
         _plural_namespace = self._pluralize_name(namespace)
         self._validate_field_types(fields)
@@ -96,14 +95,11 @@ class _ModelContentGenerator(_BaseContentGenerator):
 
 class _RouterContentGenerator(_BaseContentGenerator):
     def generate(self, *args: Any, **kwargs: Any) -> Any:
-        print("Generating router...")
-        print(args, kwargs)
         _input = kwargs.get("_input")
-        if not _input:
-            raise ValueError(
-                "Missing input. Please provide a router name and routes."
-                " For example: snok generate router myrouter route1 route2 route3"
-            )
+        assert _input is not None, (
+            "Missing input. Please provide a router name and routes."
+            " For example: snok generate router myrouter route1 route2 route3"
+        )
         namespace, routes = _input[0].lower(), _input[1:]
         os.makedirs(f"{_get_project_name()}/{namespace}", exist_ok=True)
         router_filename = f"{_get_project_name()}/{namespace}/router.py"
@@ -138,30 +134,113 @@ class _RouterContentGenerator(_BaseContentGenerator):
             f.write(f"\nrouter.include_router(router={namespace}_router)\n")
 
 
-class _ViewContentGenerator(_BaseContentGenerator):
-    def generate(self, *args: Any, **kwargs: Any) -> Any:
-        print("Generating view...")
-        print(args, kwargs)
-
-
 class _ScaffoldContentGenerator(_BaseContentGenerator):
     def generate(self, *args: Any, **kwargs: Any) -> Any:
-        print("Scaffolding...")
-        print(args, kwargs)
         _input = kwargs.get("_input")
-        if not _input:
-            raise ValueError(
-                "Missing input. Please provide a model name and fields."
-                " For example: snok generate scaffold person name:str age:int"
-            )
+        assert _input is not None, (
+            "Missing input. Please provide a model name and fields."
+            " For example: snok generate scaffold person name:str age:int"
+        )
         mcg = _ModelContentGenerator()
         mcg.generate(*args, **kwargs)
 
         namespace, fields = _input[0].lower(), _input[1:]
+        _fields = [field.split(":") for field in fields]
         _plural_namespace = self._pluralize_name(namespace)
-        self._validate_field_types(fields)
+        os.makedirs(f"{_get_project_name()}/{_plural_namespace}", exist_ok=True)
+        with open(f"{_get_project_name()}/{_plural_namespace}/__init__.py", "w") as f:
+            pass
+        os.makedirs(
+            f"{_get_project_name()}/../tests/{_plural_namespace}", exist_ok=True
+        )
+        with open(
+            f"{_get_project_name()}/../tests/{_plural_namespace}/__init__.py", "w"
+        ) as f:
+            pass
 
-        # TODO: generate router
-        # TODO: generate services
-        # TODO: generate schemas
-        # TODO: generate views
+        # generate scaffolded router
+        scaffolded_router_filename_dst = (
+            f"{_get_project_name()}/{_plural_namespace}/router.py"
+        )
+        scaffolded_router_filename_src = (
+            f"{_get_snok_path()}/templates/__app_scaffold/router.py"
+        )
+        content = Template(open(scaffolded_router_filename_src).read()).render(
+            __template_name=_get_project_name(),
+            __template_plural_namespace=_plural_namespace,
+            __template_plural_namespace_caps=_plural_namespace.capitalize(),
+            __template_namespace=namespace,
+        )
+        with open(scaffolded_router_filename_dst, "w") as f:
+            f.write(content)
+
+        # generate scaffolded service
+        scaffolded_service_filename_dst = (
+            f"{_get_project_name()}/{_plural_namespace}/service.py"
+        )
+        scaffolded_service_filename_src = (
+            f"{_get_snok_path()}/templates/__app_scaffold/service.py"
+        )
+        content = Template(open(scaffolded_service_filename_src).read()).render(
+            __template_name=_get_project_name(),
+            __template_plural_namespace=_plural_namespace,
+            __template_plural_namespace_caps=_plural_namespace.capitalize(),
+            __template_namespace=namespace,
+        )
+        with open(scaffolded_service_filename_dst, "w") as f:
+            f.write(content)
+
+        # generate scaffolded schemas
+        scaffolded_schemas_filename_dst = (
+            f"{_get_project_name()}/{_plural_namespace}/schemas.py"
+        )
+        scaffolded_schemas_filename_src = (
+            f"{_get_snok_path()}/templates/__app_scaffold/schemas.py"
+        )
+        content = Template(open(scaffolded_schemas_filename_src).read()).render(
+            __template_name=_get_project_name(),
+            __template_plural_namespace=_plural_namespace,
+            __template_plural_namespace_caps=_plural_namespace.capitalize(),
+            __template_namespace=namespace,
+            __template_fields=_fields,
+        )
+        with open(scaffolded_schemas_filename_dst, "w") as f:
+            f.write(content)
+
+        # generate scaffolded tests
+
+        scaffolded_tests_filename_dst = (
+            f"{_get_project_name()}/../tests/{_plural_namespace}/test_router.py"
+        )
+        scaffolded_tests_filename_src = (
+            f"{_get_snok_path()}/templates/__app_scaffold_tests/test_router.py"
+        )
+        content = Template(open(scaffolded_tests_filename_src).read()).render(
+            __template_name=_get_project_name(),
+            __template_plural_namespace=_plural_namespace,
+            __template_plural_namespace_caps=_plural_namespace.capitalize(),
+            __template_namespace=namespace,
+        )
+        with open(scaffolded_tests_filename_dst, "w") as f:
+            f.write(content)
+
+        # update routers.py with import statement
+        routers_file = f"{_get_project_name()}/router.py"
+        import_statement = (
+            f"from {_get_project_name()}.{_plural_namespace}.router"
+            f" import router as {_plural_namespace}_router\n"
+        )
+        with open(routers_file, "r") as f:
+            lines = f.readlines()
+        with open(routers_file, "w") as f:
+            for line in lines:
+                if line.startswith("router = APIRouter(\n"):
+                    f.write(
+                        line.replace(
+                            "router = APIRouter(\n",
+                            f"{import_statement}\n\nrouter = APIRouter(\n",
+                        )
+                    )
+                else:
+                    f.write(line)
+            f.write(f"\nrouter.include_router(router={_plural_namespace}_router)\n")

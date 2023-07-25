@@ -38,13 +38,13 @@ def add_session_middleware(app: FastAPI) -> None:
         secret_key=settings.API_SECRET_KEY,
     )
 
-def mount_directories(app: FastAPI) -> None:
-    app.mount(
-        name="static",
-        path="/static",
-        app=StaticFiles(directory="static"),
-    )
-
+# TODO: frontend with htmx and tailwind
+# def mount_directories(app: FastAPI) -> None:
+#     app.mount(
+#         name="static",
+#         path="/static",
+#         app=StaticFiles(directory="static"),
+#     )
 
 def add_http_middleware(app: FastAPI) -> None:
     @app.middleware("http")
@@ -78,7 +78,8 @@ def create_app() -> FastAPI:
         generate_unique_id_function=generate_unique_openapi_id
     )
 
-    mount_directories(app)
+    # TODO: frontend with htmx and tailwind
+    # mount_directories(app)
     configure_events(app)
     configure_cors(app)
     add_http_middleware(app)

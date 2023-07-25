@@ -9,9 +9,9 @@ from asgi_lifespan import LifespanManager
 from fastapi import Request
 from httpx import AsyncClient
 from sqlalchemy.orm import sessionmaker
-from sqlmodel import SQLModel
 from sqlmodel.ext.asyncio.session import AsyncSession
 
+from {{ __template_name }}.kit.db import RecordModel
 from {{ __template_name }}.database import async_db_engine
 from {{ __template_name }}.logger import log
 from {{ __template_name }}.app import app
@@ -44,11 +44,11 @@ async def async_db_session() -> AsyncGenerator:
 
     async with session() as s:
         async with async_db_engine.begin() as conn:
-            await conn.run_sync(SQLModel.metadata.create_all)
+            await conn.run_sync(RecordModel.metadata.create_all)
         yield s
 
     async with async_db_engine.begin() as conn:
-        await conn.run_sync(SQLModel.metadata.drop_all)
+        await conn.run_sync(RecordModel.metadata.drop_all)
 
     await async_db_engine.dispose()
 

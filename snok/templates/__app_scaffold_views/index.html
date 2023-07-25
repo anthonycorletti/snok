@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="w-full">
+    <h1 class="font-bold text-4xl">Persons</h1>
+    <div class="flex flex-col">
+        {% if persons|length == 0 %}
+        <div class="flex flex-row justify-between items-center border-b border-gray-200 dark:border-gray-800 py-2">
+            <div class="flex flex-row items-center">
+                <div class="flex flex-col">
+                    <div class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                        No persons found
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% for person in persons %}
+        <div class="flex flex-row justify-between items-center border-b border-gray-200 dark:border-gray-800 py-2 my-5">
+            <div class="flex flex-row items-center">
+                <div class="flex flex-col">
+                    <div class="text-lg font-medium">
+                        Name: {{ person.name }}
+                    </div>
+                    <div class="text-lg">
+                        Age: {{ person.age }}
+                    </div>
+                    <div class="justify-items-start my-2">
+                        <a
+                            href="/persons/{{ person.id }}"
+                            class="rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"
+                            >Show</a
+                        >
+                        <a
+                            href="/persons/{{ person.id }}/edit"
+                            class="rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium"
+                            >Edit</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="flex flex-row justify-between items-center py-2">
+        <div class="flex flex-row items-center">
+            <div class="flex flex-col">
+                <div class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    <a
+                        href="/persons/new/"
+                        class="rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium"
+                        >New Person</a
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

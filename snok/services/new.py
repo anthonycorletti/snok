@@ -2,7 +2,7 @@ import importlib.resources as resources
 import os
 import re
 
-from jinja2 import Environment, FileSystemLoader, Template
+from jinja2 import Template
 
 from snok.const import ProjectType
 
@@ -44,12 +44,13 @@ class BaseNewService:
                         if type == ProjectType.app:
                             with open(file_path, "r") as f:
                                 content = f.read()
-                                content = content.replace(
-                                    '"console_output_style=progress"',
-                                    '"console_output_style=progress"'
-                                    ', "--asyncio-mode=auto"',
-                                )
-                            with open(file_path, "w") as f:
+                                if "--asyncio-mode=auto" not in content:
+                                    content = content.replace(
+                                        '"console_output_style=progress"',
+                                        '"console_output_style=progress"'
+                                        ', "--asyncio-mode=auto"',
+                                    )
+                            with open(output_path, "w") as f:
                                 f.write(content)
 
                     if output_path.endswith("alembic.ini"):
@@ -62,12 +63,13 @@ class BaseNewService:
                             "py.typed", f"{name}/py.typed"
                         )
 
-                    if re.match(r"/.*\.env.*$", output_path):
+                    if re.match(r"^.*\.env.*$", output_path):
                         b = os.path.basename(output_path)
                         output_path = output_path.replace(f"{name}/{b}", b)
 
+                    # TODO: Add support for htmx and tailwind
                     if output_path.endswith("tailwind.config.js"):
-                        output_path = output_path.replace(
+                        output_path = output_path.replace(  # pragma: no cover
                             "static/tailwind.config.js", "tailwind.config.js"
                         )
 
@@ -95,7 +97,8 @@ class BaseNewService:
     ) -> None:
         os.makedirs(os.path.dirname(output_path), exist_ok=True)
         if self._file_is_image_file(file_path=source_path):
-            with open(source_path, "rb") as source_file:
+            # TODO: Add support for images for rendering in frontend
+            with open(source_path, "rb") as source_file:  # pragma: no cover
                 with open(output_path, "wb") as output_file:
                     output_file.write(source_file.read())
         else:
@@ -117,22 +120,14 @@ class BaseNewService:
     def _render_output_content_string(
         self, source_path: str, source_content: str, name: str, desc: str
     ) -> str:
-        if os.path.splitext(source_path)[1] == ".html":
-            return (
-                Environment(
-                    loader=FileSystemLoader(searchpath=os.path.dirname(source_path))
-                )
-                .from_string(source_content)
-                .render(
-                    __template_name=name,
-                    __template_description=desc,
-                )
-            )
-        else:
-            return Template(source_content).render(
+        return (
+            source_content
+            if os.path.splitext(source_path)[1] == ".html"
+            else Template(source_content).render(
                 __template_name=name,
                 __template_description=desc,
             )
+        )
 
 
 class NewPackageService(BaseNewService):
@@ -196,8 +191,9 @@ class NewAppService(BaseNewService):
         app_migrations_templates_dir = (
             f"{self.root_template_dir}/__{type.value}_migrations"
         )
-        app_views_templates_dir = f"{self.root_template_dir}/__{type.value}_views"
-        app_static_templates_dir = f"{self.root_template_dir}/__{type.value}_static"
+        # TODO: frontend with htmx and tailwind
+        # app_views_templates_dir = f"{self.root_template_dir}/__{type.value}_views"
+        # app_static_templates_dir = f"{self.root_template_dir}/__{type.value}_static"
         os.makedirs(output_dir, exist_ok=True)
         self._render_content_directory(
             name=name,
@@ -233,23 +229,24 @@ class NewAppService(BaseNewService):
             output_dir=app_migrations_root,
             type=type,
         )
-        app_views_root = f"{output_dir}/views"
-        os.makedirs(app_views_root, exist_ok=True)
-        self._render_content_directory(
-            name=name,
-            desc=desc,
-            source_dir=app_views_templates_dir,
-            output_dir=app_views_root,
-            type=type,
-        )
-        app_template_root = f"{output_dir}/static"
-        os.makedirs(app_template_root, exist_ok=True)
-        self._render_content_directory(
-            name=name,
-            desc=desc,
-            source_dir=app_static_templates_dir,
-            output_dir=app_template_root,
-            type=type,
-        )
+        # TODO: frontend with htmx and tailwind
+        # app_views_root = f"{output_dir}/views"
+        # os.makedirs(app_views_root, exist_ok=True)
+        # self._render_content_directory(
+        #     name=name,
+        #     desc=desc,
+        #     source_dir=app_views_templates_dir,
+        #     output_dir=app_views_root,
+        #     type=type,
+        # )
+        # app_template_root = f"{output_dir}/static"
+        # os.makedirs(app_template_root, exist_ok=True)
+        # self._render_content_directory(
+        #     name=name,
+        #     desc=desc,
+        #     source_dir=app_static_templates_dir,
+        #     output_dir=app_template_root,
+        #     type=type,
+        # )
         if not os.path.exists(f"{output_dir}/.git"):
             os.system(f"git init {output_dir} > /dev/null 2>&1")

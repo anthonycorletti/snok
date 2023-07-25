@@ -25,7 +25,6 @@ from snok.utils import (
     _bump_version_string,
     _get_default_output_dir,
     _get_project_name,
-    _install_node_module_requirements,
     _run_cmd,
     _snok_sources,
     _update_pyproject_toml,
@@ -89,13 +88,15 @@ def _new(
     new_project_service = new_project_service_dispatcher[type]()
     echo(f"Creating project {name}...")
     new_project_service.create(
-        name=name, desc=description, type=type, output_dir=output_dir
+        name=name,
+        desc=description,
+        type=type,
+        output_dir=output_dir,
     )
     if type == ProjectType.app:  # pragma: no cover
         echo("Adding project dependencies...")
         _add(packages=BASE_APP_PACKAGES, dependency_group=None, install=False)
         _add(packages=BASE_APP_DEV_PACKAGES, dependency_group="dev")
-        _install_node_module_requirements()
 
 
 @app.command(
@@ -387,12 +388,12 @@ def _bump_version(
 @app.command(
     "g",
     hidden=True,
-    help="Generate fully tested models, routers, and views.",
+    help="Generate fully tested models and routers.",
     no_args_is_help=True,
 )
 @app.command(
     "generate",
-    help="Generate fully tested models, routers, and views.",
+    help="Generate fully tested models and routers.",
     no_args_is_help=True,
 )
 def _generate(
@@ -434,19 +435,26 @@ def _server(
         "-p",
         help="The port to run the server on.",
     ),
+    styles: bool = Option(
+        False,
+        "--styles",
+        "-s",
+        help="Whether to watch styles.",
+    ),
 ) -> None:  # pragma: no cover
     import uvicorn
 
-    p = Process(
-        name="snok_npx_tailwindcss",
-        target=_run_cmd,
-        kwargs={
-            "cmd": "npx tailwindcss -i ./static/css/input.css"
-            " -o ./static/css/tailwind.css --watch"
-        },
-        daemon=True,
-    )
-    p.start()
+    if styles:
+        styles_process = Process(
+            name="snok_npx_tailwindcss",
+            target=_run_cmd,
+            kwargs={
+                "cmd": "npx tailwindcss -i ./static/css/input.css"
+                " -o ./static/css/tailwind.css --watch"
+            },
+            daemon=True,
+        )
+        styles_process.start()
 
     uvicorn.run(
         f"{_get_project_name()}.app:app",
@@ -459,4 +467,5 @@ def _server(
         ],
     )
 
-    p.join()
+    if styles:
+        styles_process.join()

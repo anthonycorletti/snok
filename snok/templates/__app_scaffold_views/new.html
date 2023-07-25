@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl">New person</h1>
+
+    <form hx-post="/persons" hx-ext="json-enc">
+        <div class="flex flex-col">
+            <label for="person_name" class="text-lg font-medium text-gray-900 dark:text-gray-100">Name</label>
+            <input type="text" name="name" id="person_name" required class="rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" />
+        </div>
+
+        <div class="flex flex-col">
+            <label for="person_age" class="text-lg font-medium text-gray-900 dark:text-gray-100">Age</label>
+            <input type="number" name="age" id="person_age" required class="rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" />
+        </div>
+
+        <div class="flex flex-row justify-between items-center py-2">
+            <div class="flex flex-row items-center">
+                <div class="flex flex-col">
+                    <button type="submit" value="Create Person" class="text-lg text-gray-900 dark:text-gray-100 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium hover:bg-gray-200">
+                        Create Person
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+  <div class="flex flex-row justify-between items-center py-2">
+        <div class="flex flex-row items-center">
+            <div class="flex flex-col">
+                <div class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    <a
+                    href="/persons"
+                    class="rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium  hover:bg-gray-200"
+                    >Back to persons</a
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

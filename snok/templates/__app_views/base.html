@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" , class="scroll-smooth">
   {% include "partials/_head.html" %}
-  <body class="min-h-screen bg-white dark:bg-black dark:text-white">
-    {% block content %} {% endblock %} {% include "partials/_foot.html" %}
+  <body>
+    <main class="container mx-auto mt-28 px-5 flex min-h-screen bg-white dark:bg-black dark:text-white">
+      {% block content %}
+      {% endblock %}
+    </main>
+    {% include "partials/_foot.html" %}
   </body>
 </html>

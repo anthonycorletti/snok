@@ -50,5 +50,14 @@ class BumpType(Enum):
 class ContentType(str, Enum):
     model = "model"
     router = "router"
-    view = "view"
+    # TODO: Add support for htmx and tailwind
+    # view = "view"
     scaffold = "scaffold"
+
+
+@unique
+class DatabaseCommand(str, Enum):
+    migrate = "migrate"
+    upgrade = "upgrade"
+    downgrade = "downgrade"
+    revision = "revision"

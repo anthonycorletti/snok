@@ -46,16 +46,19 @@ Snok is designed to leverage the best tools and packages that exist in the Pytho
 - Packaging with `setuptools`
 - Linting and formatting with `ruff` and `black`
 - Type checking with `mypy`
-- Testing with `pytest`
+- Async, multi-worker testing with `pytest`
+- Async API scaffolding with `fastapi`
+- Async database integration with `pydantic`, `sqlmodel`, and `alembic`
 
 ## 🤩 Coming Soon
 
-- Database integration with `pydantic`, `sqlmodel`, and `alembic`
-- Web application generation with `fastapi` and `htmx`
-- Production ready deployment stacks with `nix`, `docker`, `skaffold` and `kustomize`
-- AI framework integrations with `pytorch` and `langchain`
+- Queueing and caching with `arq` and `redis`
+- Production ready deployment stacks with `docker`, `skaffold` and `kustomize`
 - Documentation site generation with `mkdocs`
+- AI framework integrations with `pytorch` and `langchain`
 - Configure and set up monitoring with services like `sentry` and `logz`, or with DIY `opentelemetry`.
+- Web-page generation with `tailwindcss` and `htmx`
+- Serverless GPU integrations with [Modal](https://modal.com) and `hotbox`
 
 Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) and [pull requests](https://github.com/anthonycorletti/snok/pulls) to see what's coming soon!
 

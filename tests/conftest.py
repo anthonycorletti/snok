@@ -12,7 +12,7 @@ def cli_runner() -> Generator:
     yield r
 
 
-@pytest.fixture(scope="function", autouse=True)
+@pytest.fixture(scope="function")
 def setup_test_project_dir() -> Generator:
     _dir = f"tmp/test_project_{os.getpid()}"
     os.makedirs(_dir, exist_ok=True)
