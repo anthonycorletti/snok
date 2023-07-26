@@ -37,7 +37,10 @@ The Python tooling ecosystem has plenty of options, and often times, it's not cl
 
 With this in mind, snok is a Python toolkit for developers that focuses on making it simple and easy to build modern, full-stack applications, across web and AI frameworks.
 
-Snok is designed to leverage the best tools and packages that exist in the Python ecosystem in simple and easy to use workflows that accelerate development.
+Snok is designed to leverage the tools and packages of the Python ecosystem with awesome developer experience to increase the number of simple and easy to use workflows that developers can experience.
+
+Snok is designed for the programmer.
+
 
 ## 🎉 Featuring
 
@@ -49,16 +52,16 @@ Snok is designed to leverage the best tools and packages that exist in the Pytho
 - Async, multi-worker testing with `pytest`
 - Async API scaffolding with `fastapi`
 - Async database integration with `pydantic`, `sqlmodel`, and `alembic`
+- Natively deploy to [Modal](https://modal.com) and run key-value stores, jobs, and GPU compute.
 
 ## 🤩 Coming Soon
 
-- Queueing and caching with `arq` and `redis`
-- Production ready deployment stacks with `docker`, `skaffold` and `kustomize`
-- Documentation site generation with `mkdocs`
 - AI framework integrations with `pytorch` and `langchain`
-- Configure and set up monitoring with services like `sentry` and `logz`, or with DIY `opentelemetry`.
+- Documentation site generation with `mkdocs` and `mkdocs-material`
+- Connect to monitoring with services like `sentry` and `logz`, or with DIY `opentelemetry`
 - Web-page generation with `tailwindcss` and `htmx`
-- Serverless GPU integrations with [Modal](https://modal.com) and `hotbox`
+- Deployment stacks with `docker`, `skaffold` and `kustomize`
+- Queueing and caching stacks with `arq` and `redis`
 
 Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) and [pull requests](https://github.com/anthonycorletti/snok/pulls) to see what's coming soon!
 

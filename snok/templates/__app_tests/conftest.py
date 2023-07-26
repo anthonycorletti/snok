@@ -55,7 +55,7 @@ async def async_db_session() -> AsyncGenerator:
 
 @pytest_asyncio.fixture(scope="session", autouse=True)
 async def setup_database() -> AsyncGenerator:
-    parsed_url = urlparse(settings.DB_URL)
+    parsed_url = urlparse(settings.db_url)
     database = parsed_url.path[1:]
     host = parsed_url.hostname
     port = parsed_url.port

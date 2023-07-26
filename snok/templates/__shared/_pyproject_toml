@@ -120,7 +120,7 @@ addopts = [
 [tool.coverage.run]
 parallel = true
 source = ["{{ __template_name }}", "tests"]
-omit = ["*__init__.py"]
+omit = ["*__init__.py", "_modal.py"]
 concurrency = ["thread", "greenlet", "multiprocessing"]
 
 [tool.coverage.report]

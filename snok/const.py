@@ -9,8 +9,9 @@ BASE_APP_PACKAGES = [
     "fastapi",
     "greenlet",
     "httpx",
-    "itsdangerous",
     "jinja2",
+    "modal",
+    "pydantic",
     "python-dateutil",
     "python-dotenv",
     "python-multipart",
@@ -22,8 +23,15 @@ BASE_APP_PACKAGES = [
 
 BASE_APP_DEV_PACKAGES = [
     "asgi-lifespan",
+    "black",
     "coverage",
+    "mypy",
+    "pre-commit",
     "pytest-asyncio",
+    "pytest-cov",
+    "pytest-xdist",
+    "pytest",
+    "ruff",
     "watchfiles",
 ]
 

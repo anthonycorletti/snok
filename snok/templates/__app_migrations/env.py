@@ -38,7 +38,7 @@ target_metadata = Model.metadata
 
 
 def get_url() -> str:
-    url = settings.DB_URL
+    url = settings.db_url
     if not url:
         raise ValueError("database url is not set")
     return url

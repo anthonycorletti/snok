@@ -2,7 +2,7 @@ import os
 import sys
 
 from {{ __template_name }}.const import ENV
-from pydantic import BaseSettings, Field
+from pydantic import BaseSettings, Field, PostgresDsn
 
 
 class Settings(BaseSettings):
@@ -33,10 +33,38 @@ class Settings(BaseSettings):
         description="Logging level, can be one of DEBUG, "
         "INFO, WARNING, ERROR, CRITICAL",
     )
-    DB_URL: str = Field(
-        "postgresql+asyncpg://username:password@localhost:5432/database_name",
-        env="DB_URL",
-        description="The database URL.",
+    #
+    #   Postgres
+    #
+    POSTGRES_SCHEME: str = Field(
+        "postgresql+asyncpg",
+        env="POSTGRES_SCHEME",
+        description="The postgres scheme.",
+    )
+    POSTGRES_USER: str = Field(
+        "{{ __template_name }}",
+        env="POSTGRES_USER",
+        description="The postgres user.",
+    )
+    POSTGRES_PASSWORD: str = Field(
+        "{{ __template_name }}",
+        env="POSTGRES_PASSWORD",
+        description="The postgres password.",
+    )
+    POSTGRES_HOST: str = Field(
+        "127.0.0.1",
+        env="POSTGRES_HOST",
+        description="The postgres host.",
+    )
+    POSTGRES_PORT: int = Field(
+        5432,
+        env="POSTGRES_PORT",
+        description="The postgres port.",
+    )
+    POSTGRES_DATABASE: str = Field(
+        "{{ __template_name }}_development",
+        env="POSTGRES_DATABASE",
+        description="The postgres database name.",
     )
     DB_POOL_SIZE: int = Field(
         0,
@@ -53,6 +81,17 @@ class Settings(BaseSettings):
         env="DB_POOL_PRE_PING",
         description="Check database connection before using it.",
     )
+
+    @property
+    def db_url(self) -> str:
+        return PostgresDsn.build(
+            scheme=self.POSTGRES_SCHEME,
+            user=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_HOST,
+            port=str(self.POSTGRES_PORT),
+            path=f"/{self.POSTGRES_DATABASE}",
+        )
 
     class Config:
         env_file = ".env"

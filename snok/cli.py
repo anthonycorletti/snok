@@ -404,7 +404,7 @@ def _generate(
     _input: List[str] = Argument(
         ...,
     ),
-) -> None:  # pragma: no cover
+) -> None:
     content_generator_dispatcher = {
         ContentType.model: _ModelContentGenerator,
         ContentType.router: _RouterContentGenerator,

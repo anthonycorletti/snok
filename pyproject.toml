@@ -1,48 +1,22 @@
 [build-system]
-requires = [
-    "setuptools",
-    "wheel",
-]
+requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "snok"
 description = "🚀 A simple, modern, full-stack toolkit for Python 🐍"
 readme = "README.md"
-dynamic = [
-    "version",
-]
+dynamic = ["version"]
 requires-python = ">=3.11"
 dependencies = [
-    "alembic>=1.11.1",
-    "asyncpg>=0.28.0",
-    "black>=21.10",
-    "coverage>=6.1.1",
-    "fastapi>=0.100.0",
-    "greenlet>=2.0.2",
     "httpx>=0.24.1",
-    "itsdangerous>=2.1.2",
     "jinja2>=3.1.2",
-    "mypy>=0.910",
     "packaging>=21.0",
-    "pre-commit>=2.17.0",
     "pydantic>=1.8.2",
-    "pytest-cov>=3.0.0",
-    "pytest-xdist>=3.3.1",
-    "pytest>=6.2.5",
-    "python-dateutil>=2.8.2",
-    "python-dotenv>=1.0.0",
-    "python-multipart>=0.0.6",
-    "requests>=2.26.0",
     "rich>=13.4.2",
-    "ruff>=0.0.98",
     "setuptools>=67.8.0",
-    "sqlmodel>=0.0.8",
-    "structlog>=23.1.0",
     "toml>=0.10.2",
     "typer>=0.7.0",
-    "types-requests>=2.26.0",
-    "types-toml>=0.1.0",
     "uvicorn>=0.23.1",
     "wheel>=0.36",
 ]
@@ -56,12 +30,20 @@ text = "MIT"
 [project.optional-dependencies]
 dev = [
     "asgi-lifespan>=2.1.0",
+    "black>=21.10",
     "coverage>=7.2.7",
     "invoke>=1.6.0",
     "mdx-include>=1.4.2",
     "mkdocs-material>=9.1.5",
     "mkdocs>=1.4.2",
+    "mypy>=0.910",
+    "pre-commit>=2.17.0",
     "pytest-asyncio>=0.21.1",
+    "pytest-cov>=3.0.0",
+    "pytest-xdist>=3.3.1",
+    "pytest>=6.2.5",
+    "ruff>=0.0.98",
+    "types-toml>=0.1.0",
     "watchfiles>=0.19.0",
 ]
 
@@ -73,30 +55,14 @@ Documentation = "https://snok.corletti.xyz"
 snok = "snok.cli:app"
 
 [tool.snok]
-sources = [
-    "snok",
-    "tests",
-]
+sources = ["snok", "tests"]
 
 [tool.ruff]
 line-length = 88
-ignore = [
-    "D10",
-]
-include = [
-    "*.py",
-]
-exclude = [
-    "dist",
-    "build",
-    ".venv",
-    "snok/templates/*",
-]
-select = [
-    "E",
-    "F",
-    "I",
-]
+ignore = ["D10"]
+include = ["*.py"]
+exclude = ["dist", "build", ".venv", "snok/templates/*"]
+select = ["E", "F", "I"]
 target-version = "py311"
 extend-ignore = [
     "D203",
@@ -114,9 +80,7 @@ extend-ignore = [
 ]
 
 [tool.black]
-target-version = [
-    "py311",
-]
+target-version = ["py311"]
 include = '\.pyi?$'
 exclude = '''
 /(
@@ -141,21 +105,13 @@ force-exclude = '''
 [tool.mypy]
 ignore_missing_imports = true
 disallow_untyped_defs = true
-exclude = [
-    "dist",
-    "build",
-    ".venv",
-    "snok/templates/*",
-]
+exclude = ["dist", "build", ".venv", "snok/templates/*"]
 
 [tool.ruff.pydocstyle]
 convention = "google"
 
 [tool.setuptools.package-data]
-snok = [
-    "py.typed",
-    "templates/**/*",
-]
+snok = ["py.typed", "templates/**/*"]
 
 [tool.pytest.ini_options]
 addopts = [
@@ -173,16 +129,10 @@ addopts = [
 ]
 
 [tool.coverage.run]
-omit = [
-    "*__init__.py",
-    "snok/templates/*",
-]
+omit = ["*__init__.py", "snok/templates/*"]
 
 [tool.coverage.report]
-exclude_lines = [
-    "pragma: no cover",
-    "raise NotImplementedError",
-]
+exclude_lines = ["pragma: no cover", "raise NotImplementedError"]
 
 [tool.coverage.html]
 directory = "htmlcov"
@@ -194,6 +144,4 @@ output = "coverage.xml"
 attr = "snok.__version__"
 
 [tool.setuptools.packages.find]
-exclude = [
-    "tests",
-]
+exclude = ["tests"]

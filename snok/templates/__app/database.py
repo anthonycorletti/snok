@@ -12,14 +12,14 @@ from {{ __template_name }}.config import settings
 def _override_db_url_for_distributed_testing() -> None:
     if os.getenv("_", "").endswith("pytest") or "pytest" in "".join(sys.argv):
         pid = os.getpid()
-        settings.DB_URL = f"{settings.DB_URL}_{pid}"
+        settings.db_url = f"{settings.db_url}_{pid}"
 
 
 _override_db_url_for_distributed_testing()
 
 
 async_db_engine = create_async_engine(
-    url=settings.DB_URL,
+    url=settings.db_url,
     pool_size=settings.DB_POOL_SIZE,
     max_overflow=settings.DB_MAX_OVERFLOW,
     pool_pre_ping=settings.DB_POOL_PRE_PING,
