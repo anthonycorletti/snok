@@ -12,7 +12,7 @@ from {{ __template_name }}.config import settings
 def _override_db_url_for_distributed_testing() -> None:
     if os.getenv("_", "").endswith("pytest") or "pytest" in "".join(sys.argv):
         pid = os.getpid()
-        settings.db_url = f"{settings.db_url}_{pid}"
+        settings.POSTGRES_DATABASE = f"{settings.POSTGRES_DATABASE}_{pid}"
 
 
 _override_db_url_for_distributed_testing()

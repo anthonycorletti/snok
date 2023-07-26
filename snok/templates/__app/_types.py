@@ -31,5 +31,5 @@ class ResponseLoggerMessage(BaseModel):
         _headers = values.get("raw_headers", [])
         for header in _headers:
             if header[0].decode("utf8") == "content-type":
-                values["body"] = json.loads(values["body"]) if header[1].decode("utf-8") == "application/json" else None
+                values["body"] = (json.loads(values["body"]) if header[1].decode("utf-8") == "application/json" else None)
         return values

@@ -2,7 +2,7 @@ import importlib
 from multiprocessing import Process
 from typing import List, Optional
 
-from typer import Argument, Exit, Option, Typer, echo
+from typer import Argument, Option, Typer, echo
 
 from snok import __version__
 from snok.const import (
@@ -105,23 +105,20 @@ def _new(
 )
 def _clean() -> None:  # pragma: no cover
     _run_cmd(
-        " ".join(
-            [
-                "rm",
-                "-rf",
-                "build",
-                "dist",
-                "site",
-                "htmlcov",
-                ".mypy_cache",
-                ".pytest_cache",
-                ".ruff_cache",
-                "*.egg-info",
-                "coverage.xml",
-                ".coverage",
-            ]
-        ),
-        shell=True,
+        [
+            "rm",
+            "-rf",
+            "build",
+            "dist",
+            "site",
+            "htmlcov",
+            ".mypy_cache",
+            ".pytest_cache",
+            ".ruff_cache",
+            "*.egg-info",
+            "coverage.xml",
+            ".coverage",
+        ]
     )
 
 
@@ -144,30 +141,38 @@ def _install(
     ),
 ) -> None:  # pragma: no cover
     _run_cmd(
-        "pip install --upgrade pip",
+        ["pip", "install", "--upgrade", "pip"],
     )
     dep_install_str = "."
     if dependency_groups and dependency_groups != ["prod"]:
         dep_install_str += f"[{','.join(dependency_groups)}]"
     _run_cmd(
-        " ".join(
-            [
-                "pip",
-                "install",
-                "-e" if editable else "",
-                dep_install_str,
-            ]
-        ),
+        [
+            "pip",
+            "install",
+            "-e" if editable else "",
+            dep_install_str,
+        ]
     )
     _run_cmd(
-        "pre-commit install",
+        ["pre-commit", "install"],
     )
     _run_cmd(
-        "pre-commit autoupdate",
+        ["pre-commit", "autoupdate"],
     )
     _run_cmd(
-        "if command -v pyenv 1>/dev/null 2>&1; then pyenv rehash; fi",
-        shell=True,
+        [
+            "if",
+            "command",
+            "-v",
+            "pyenv",
+            "1>/dev/null",
+            "2>&1;",
+            "then",
+            "pyenv",
+            "rehash;",
+            "fi",
+        ],
     )
 
 
@@ -232,7 +237,7 @@ def _remove(
         dependency_group_name=dependency_group,
     )
     _run_cmd(
-        f"pip uninstall -y {' '.join(packages)}",
+        ["pip", "uninstall", "-y", *packages],
     )
     if install:
         _install(dependency_groups=[dependency_group] if dependency_group else ["all"])
@@ -244,33 +249,15 @@ def _remove(
 )
 def _lint() -> None:  # pragma: no cover
     echo("Linting...")
-    out = _run_cmd(
-        f"mypy {' '.join(_snok_sources())}",
-        shell=True,
-        check=False,
-        capture_output=True,
+    _run_cmd(
+        ["mypy", *_snok_sources()],
     )
-    if out is not None and out.returncode != 0:
-        echo(out.stdout.decode("utf-8").strip(), err=True)
-        raise Exit(code=1)
-    out = _run_cmd(
-        f"black --check {' '.join(_snok_sources())}",
-        shell=True,
-        check=False,
-        capture_output=True,
+    _run_cmd(
+        ["black", "--check", *_snok_sources()],
     )
-    if out is not None and out.returncode != 0:
-        echo(out.stdout.decode("utf-8").strip(), err=True)
-        raise Exit(code=1)
-    out = _run_cmd(
-        f"ruff {' '.join(_snok_sources())}",
-        shell=True,
-        check=False,
-        capture_output=True,
+    _run_cmd(
+        ["ruff", *_snok_sources()],
     )
-    if out is not None and out.returncode != 0:
-        echo(out.stdout.decode("utf-8").strip(), err=True)
-        raise Exit(code=1)
 
 
 @app.command(
@@ -279,24 +266,12 @@ def _lint() -> None:  # pragma: no cover
 )
 def _format() -> None:  # pragma: no cover
     echo("Formatting...")
-    out = _run_cmd(
-        f"black {' '.join(_snok_sources())}",
-        shell=True,
-        check=False,
-        capture_output=True,
+    _run_cmd(
+        ["black", *_snok_sources()],
     )
-    if out is not None and out.returncode != 0:
-        echo(out.stdout.decode("utf-8"), err=True)
-        raise Exit(code=1)
-    out = _run_cmd(
-        f"ruff {' '.join(_snok_sources())} --fix",
-        shell=True,
-        check=False,
-        capture_output=True,
+    _run_cmd(
+        ["ruff", "--fix", *_snok_sources()],
     )
-    if out is not None and out.returncode != 0:
-        echo(out.stdout.decode("utf-8"), err=True)
-        raise Exit(code=1)
 
 
 @app.command(
@@ -305,19 +280,7 @@ def _format() -> None:  # pragma: no cover
 )
 def _test() -> None:  # pragma: no cover
     echo("Running tests...")
-    out = _run_cmd(
-        "pytest",
-        shell=True,
-        check=False,
-        capture_output=True,
-    )
-    if out is not None and out.returncode != 0:
-        echo(out.stdout.decode("utf-8"), err=True)
-        if out.stderr:
-            echo(out.stderr.decode("utf-8"), err=True)
-        raise Exit(code=1)
-    elif out is not None:
-        echo(out.stdout.decode("utf-8"))
+    _run_cmd(["pytest"])
 
 
 @app.command(
@@ -326,10 +289,10 @@ def _test() -> None:  # pragma: no cover
 )
 def _build() -> None:  # pragma: no cover
     _run_cmd(
-        "pip install --upgrade build",
+        ["pip", "install", "--upgrade", "build"],
     )
     _run_cmd(
-        "python -m build",
+        ["python", "-m", "build"],
     )
 
 
@@ -339,10 +302,10 @@ def _build() -> None:  # pragma: no cover
 )
 def _publish() -> None:  # pragma: no cover
     _run_cmd(
-        "pip install --upgrade twine",
+        ["pip", "install", "--upgrade", "twine"],
     )
     _run_cmd(
-        "twine upload dist/*",
+        ["twine", "upload", "dist/*"],
     )
 
 
@@ -356,7 +319,7 @@ def _ok() -> None:  # pragma: no cover
     _format()
     _lint()
     _test()
-    echo("it's ok")
+    echo("it's ok!")
 
 
 @app.command("bump-version", help="Bump the version.")
@@ -442,29 +405,39 @@ def _server(
         help="Whether to watch styles.",
     ),
 ) -> None:  # pragma: no cover
-    import uvicorn
-
     if styles:
         styles_process = Process(
             name="snok_npx_tailwindcss",
             target=_run_cmd,
             kwargs={
-                "cmd": "npx tailwindcss -i ./static/css/input.css"
-                " -o ./static/css/tailwind.css --watch"
+                "cmd": [
+                    "npx",
+                    "tailwindcss",
+                    "-i",
+                    "./static/css/input.css",
+                    "-o",
+                    "./static/css/tailwind.css",
+                    "--watch",
+                ]
             },
             daemon=True,
         )
         styles_process.start()
 
-    uvicorn.run(
-        f"{_get_project_name()}.app:app",
-        host=host,
-        port=port,
-        reload=True,
-        reload_includes=[
+    _run_cmd(
+        [
+            "uvicorn",
+            f"{_get_project_name()}.app:app",
+            "--host",
+            host,
+            "--port",
+            str(port),
+            "--reload",
+            "--reload-includes",
             "*.html",
+            "--reload-includes",
             "*.css",
-        ],
+        ]
     )
 
     if styles:

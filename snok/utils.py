@@ -1,9 +1,9 @@
 import os
-import subprocess
 from typing import Any, Dict, Iterable, List, Optional
 
 import httpx
 import toml
+from invoke import Context
 from packaging.requirements import Requirement, SpecifierSet
 
 from snok.const import PYPROJECT_TOML_FILENAME, BumpType, DepencencyAction
@@ -20,32 +20,14 @@ def _get_snok_path() -> str:
 
 
 def _run_cmd(
-    cmd: str,
-    check: bool = True,
-    shell: bool = False,
-    capture_output: bool = False,
-) -> Optional[subprocess.CompletedProcess]:  # pragma: no cover
-    """Runs a command in the shell."""
-    cmd = cmd.strip()
-    if not shell:
-        cmd_arr = cmd.split(" ")
-        response = subprocess.run(
-            cmd_arr,
-            check=check,
-            shell=shell,
-            capture_output=capture_output,
-        )
-    else:
-        response = subprocess.run(
-            cmd,
-            check=check,
-            shell=shell,
-            capture_output=capture_output,
-        )
-    if capture_output:
-        if response is not None:
-            return response
-    return None
+    cmd: List[str], pty: bool = True, echo: bool = True
+) -> None:  # pragma: no cover
+    ctx = Context()
+    ctx.run(
+        " ".join(cmd),
+        pty=pty,
+        echo=echo,
+    )
 
 
 def _get_package_version_from_pypi(r: Requirement) -> SpecifierSet:  # pragma: no cover
@@ -205,7 +187,12 @@ def _bump_version_string(
 
 def _install_node_module_requirements() -> None:  # pragma: no cover
     _run_cmd(
-        " ".join(
-            ["npm", "install", "-D", "tailwindcss", "@tailwindcss/forms", "prettier"]
-        )
+        [
+            "npm",
+            "install",
+            "-D",
+            "tailwindcss",
+            "@tailwindcss/forms",
+            "prettier",
+        ]
     )

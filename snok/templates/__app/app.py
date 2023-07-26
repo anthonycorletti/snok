@@ -48,7 +48,7 @@ def add_session_middleware(app: FastAPI) -> None:
 
 def add_http_middleware(app: FastAPI) -> None:
     @app.middleware("http")
-    async def add_process_time_header(request: Request, call_next: Callable) -> Response:
+    async def add_process_time_header(request: Request, call_next: Callable,) -> Response:
         start_time = time.time() * 1000
         response = await call_next(request)
         request_time_ms = int(time.time() * 1000 - start_time)

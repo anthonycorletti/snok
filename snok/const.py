@@ -9,9 +9,10 @@ BASE_APP_PACKAGES = [
     "fastapi",
     "greenlet",
     "httpx",
+    "itsdangerous",
     "jinja2",
     "modal",
-    "pydantic",
+    "pydantic<2.0.0",  # TODO: due to sqlmodel
     "python-dateutil",
     "python-dotenv",
     "python-multipart",
@@ -33,6 +34,7 @@ BASE_APP_DEV_PACKAGES = [
     "pytest",
     "ruff",
     "watchfiles",
+    "invoke",
 ]
 
 

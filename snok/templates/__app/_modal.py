@@ -1,23 +1,20 @@
-import modal
 from fastapi import FastAPI
+from modal import Image, Secret, Stub, asgi_app
 
-from {{ __template_name }}.config import settings
-from {{ __template_name }}.app import app
-from {{ __template_name }}.const import BASE_APP_PACKAGES
+from {{ __template_name }}.config import Settings
 
-stub = modal.Stub(
-    name={{ __template_name }},
+stub = Stub(name="{{ __template_name }}")
+Settings.Config.env_file = ".env.prod"
+stub["env"] = Secret.from_dict({str(k): str(v) for k, v in Settings().dict().items()})  # type: ignore
+image = Image.debian_slim().pip_install_from_pyproject("pyproject.toml")
+
+
+@stub.function(
+    image=image,
+    secret=stub["env"],
 )
-
-stub["env"] = modal.Secret(settings.dict())
-
-image = modal.Image.debian_slim().pip_install(BASE_APP_PACKAGES)
-
-
-@stub.asgi(image=image, secret=stub["env"],)
+@asgi_app()
 def _app() -> FastAPI:
+    from {{ __template_name }}.app import app
+
     return app
-
-
-if __name__ == "__main__":
-    stub.serve()
