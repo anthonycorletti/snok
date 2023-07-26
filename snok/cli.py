@@ -442,3 +442,15 @@ def _server(
 
     if styles:
         styles_process.join()
+
+
+@app.command("deploy")
+def _deploy() -> None:  # pragma: no cover
+    """Deploy your code."""
+    _run_cmd(
+        [
+            "modal",
+            "deploy",
+            f"{_get_project_name()}/_modal.py",
+        ]
+    )

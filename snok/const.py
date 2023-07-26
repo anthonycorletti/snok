@@ -71,3 +71,8 @@ class DatabaseCommand(str, Enum):
     upgrade = "upgrade"
     downgrade = "downgrade"
     revision = "revision"
+
+
+@unique
+class DeploymentPlatform(str, Enum):
+    modal = "modal"
