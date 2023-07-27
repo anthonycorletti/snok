@@ -58,12 +58,8 @@ sources = ["snok", "tests"]
 
 [tool.ruff]
 line-length = 88
-ignore = ["D10"]
-include = ["*.py"]
-exclude = ["dist", "build", ".venv", "snok/templates/*"]
-select = ["E", "F", "I"]
-target-version = "py311"
-extend-ignore = [
+ignore = [
+    "D10",
     "D203",
     "D204",
     "D213",
@@ -77,6 +73,10 @@ extend-ignore = [
     "D413",
     "D415",
 ]
+include = ["*.py"]
+exclude = ["dist", "build", ".venv", "snok/templates/*"]
+select = ["E", "F", "I"]
+target-version = "py311"
 
 [tool.black]
 target-version = ["py311"]
@@ -102,6 +102,7 @@ force-exclude = '''
 '''
 
 [tool.mypy]
+python_version = "3.11"
 ignore_missing_imports = true
 disallow_untyped_defs = true
 exclude = ["dist", "build", ".venv", "snok/templates/*"]

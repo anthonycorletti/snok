@@ -279,9 +279,18 @@ def _format() -> None:  # pragma: no cover
     "test",
     help="Run the tests.",
 )
-def _test() -> None:  # pragma: no cover
+def _test(
+    keepitonehundred: bool = Option(
+        False,
+        "--keepitonehundred",
+        help="Fail if the test coverage is less than 100%. Defaults to False.",
+    )
+) -> None:  # pragma: no cover
     echo("Running tests...")
-    _run_cmd(["pytest"])
+    cmd = ["pytest"]
+    if keepitonehundred:
+        cmd.append("--cov-fail-under=100")
+    _run_cmd(cmd)
 
 
 @app.command(
@@ -319,7 +328,7 @@ def _ok() -> None:  # pragma: no cover
     _install(dependency_groups=["all"])
     _format()
     _lint()
-    _test()
+    _test(keepitonehundred=False)
     echo("it's ok!")
 
 

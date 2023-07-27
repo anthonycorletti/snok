@@ -41,17 +41,6 @@ exclude = ["tests"]
 line-length = 88
 ignore = [
     "D10",
-]
-include = [
-    "*.py",
-]
-select = [
-    "E",
-    "F",
-    "I",
-]
-target-version = "py310"
-extend-ignore = [
     "D203",
     "D204",
     "D213",
@@ -65,6 +54,16 @@ extend-ignore = [
     "D413",
     "D415",
 ]
+include = [
+    "*.py",
+]
+select = [
+    "E",
+    "F",
+    "I",
+]
+target-version = "py310"
+
 
 [tool.black]
 target-version = [
@@ -86,18 +85,14 @@ exclude = '''
 '''
 
 [tool.mypy]
+python_version = "3.11"
 ignore_missing_imports = true
 disallow_untyped_defs = true
-mypy_path = [
-    "{{ __template_name }}",
-    "tests",
-]
-exclude = [
-    "dist",
-    "build",
-    ".venv",
-    "{{ __template_name }}/_modal.py",
-]
+exclude = ["dist", "build", ".venv"]
+
+[[tool.mypy.overrides]]
+module = "{{ __template_name }}._modal"
+ignore_errors = true
 
 [tool.ruff.pydocstyle]
 convention = "google"
@@ -115,7 +110,6 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=xml",
     "--cov-report=html",
-    "--cov-fail-under=100",
 ]
 
 [tool.coverage.run]

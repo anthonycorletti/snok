@@ -41,7 +41,7 @@ class Cache:
         try:
             return await stub.app._kv.get.aio(key)
         except KeyError as e:
-            log.error(f"_cache.get: key ({key}) not found")
+            log.error(f"Cache.get: key ({key}) not found")
             return None
 
     @staticmethod
@@ -57,7 +57,7 @@ class Cache:
         try:
             return await stub.app._kv.pop.aio(key)
         except KeyError as e:
-            log.error(f"_cache.pop: key ({key}) not found")
+            log.error(f"Cache.pop: key ({key}) not found")
             return None
 
 

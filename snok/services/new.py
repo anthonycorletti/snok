@@ -72,10 +72,6 @@ class BaseNewService:
                             "py.typed", f"{name}/py.typed"
                         )
 
-                    if re.match(r"^.*\.env.*$", output_path):
-                        b = os.path.basename(output_path)
-                        output_path = output_path.replace(f"{name}/{b}", b)
-
                     # TODO: Add support for htmx and tailwind
                     if output_path.endswith("tailwind.config.js"):
                         output_path = output_path.replace(  # pragma: no cover
@@ -89,6 +85,10 @@ class BaseNewService:
                             output_dir,
                             relative_path.replace(_basename, _newbasename),
                         )
+
+                    if re.match(r"^.*\.env.*$", output_path):
+                        b = os.path.basename(output_path)
+                        output_path = output_path.replace(f"{name}/{b}", b)
 
                     self._render_content_file(
                         name=name,

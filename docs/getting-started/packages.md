@@ -9,6 +9,7 @@ First set up your local environment by creating a directory and activating a vir
 Assuming you have python 3.11+ installed:
 
 ```sh
+cd $HOME/Desktop
 mkdir -p mypackage && cd mypackage
 python -m venv .venv
 source .venv/bin/activate
