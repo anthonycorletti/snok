@@ -8,8 +8,8 @@ from snok import __version__
 from snok.const import (
     APP_DESC,
     APP_NAME,
-    BASE_APP_DEV_PACKAGES,
-    BASE_APP_PACKAGES,
+    BASE_DEPS,
+    BASE_DEV_DEPS,
     BumpType,
     ContentType,
     DepencencyAction,
@@ -95,8 +95,9 @@ def _new(
     )
     if type == ProjectType.app:  # pragma: no cover
         echo("Adding project dependencies...")
-        _add(packages=BASE_APP_PACKAGES, dependency_group=None, install=False)
-        _add(packages=BASE_APP_DEV_PACKAGES, dependency_group="dev")
+        _add(packages=BASE_DEPS, dependency_group=None, install=False)
+    echo("Adding project dev dependencies...")
+    _add(packages=BASE_DEV_DEPS, dependency_group="dev")
 
 
 @app.command(
@@ -449,8 +450,10 @@ def _deploy() -> None:  # pragma: no cover
     """Deploy your code."""
     _run_cmd(
         [
+            "ENV=prod",
             "modal",
             "deploy",
             f"{_get_project_name()}/_modal.py",
-        ]
+        ],
+        echo=False,
     )

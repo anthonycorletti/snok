@@ -5,6 +5,7 @@ import httpx
 import toml
 from invoke import Context
 from packaging.requirements import Requirement, SpecifierSet
+from typer import Exit
 
 from snok.const import PYPROJECT_TOML_FILENAME, BumpType, DepencencyAction
 
@@ -20,14 +21,19 @@ def _get_snok_path() -> str:
 
 
 def _run_cmd(
-    cmd: List[str], pty: bool = True, echo: bool = True
+    cmd: List[str],
+    pty: bool = True,
+    echo: bool = True,
 ) -> None:  # pragma: no cover
     ctx = Context()
-    ctx.run(
-        " ".join(cmd),
-        pty=pty,
-        echo=echo,
-    )
+    try:
+        ctx.run(
+            " ".join(cmd),
+            pty=pty,
+            echo=echo,
+        )
+    except Exception:
+        raise Exit(1)
 
 
 def _get_package_version_from_pypi(r: Requirement) -> SpecifierSet:  # pragma: no cover

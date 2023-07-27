@@ -96,6 +96,7 @@ exclude = [
     "dist",
     "build",
     ".venv",
+    "{{ __template_name }}/_modal.py",
 ]
 
 [tool.ruff.pydocstyle]

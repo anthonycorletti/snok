@@ -31,15 +31,16 @@ Snok is a simple, modern, full-stack toolkit for Python.
 
 Snok is in it's earliest stages, so feedback and ideas are very welcome and encouraged. Please open an [issue](https://github.com/anthonycorletti/snok/issues/new/choose) if you have a question, comment, feature request, idea, etc, and/or connect with Anthony directly on [Twitter](https://twitter.com/anthonycorletti) if you'd like to get in touch about the project.
 
+
 ## 🙋 Why?
 
 The Python tooling ecosystem has plenty of options, and often times, it's not clear whether or not you're following the "right" way to do things, especially when those ways are changing week to week.
 
 With this in mind, snok is a Python toolkit for developers that focuses on making it simple and easy to build modern, full-stack applications, across web and AI frameworks.
 
-Snok is designed to leverage the tools and packages of the Python ecosystem with awesome developer experience to increase the number of simple and easy to use workflows that developers can experience.
+Snok leverages tools and packages from the Python ecosystem with awesome performance and developer experience to provide simple, effective, and easy to use workflows for developers.
 
-Snok is designed for the programmer.
+Snok is designed for the programmer, and not much else.
 
 
 ## 🎉 Featuring
@@ -52,7 +53,7 @@ Snok is designed for the programmer.
 - Async, multi-worker testing with `pytest`
 - Async API scaffolding with `fastapi`
 - Async database integration with `pydantic`, `sqlmodel`, and `alembic`
-- Natively deploy to [Modal](https://modal.com) and run key-value stores, jobs, and GPU compute.
+- Natively deploy to [Modal](https://modal.com) and run key-value stores, jobs, and seamlessly access GPU compute.
 
 ## 🤩 Coming Soon
 
@@ -62,8 +63,9 @@ Snok is designed for the programmer.
 - Web-page generation with `tailwindcss` and `htmx`
 - Deployment stacks with `docker`, `skaffold` and `kustomize`
 - Queueing and caching stacks with `arq` and `redis`
+- ***Want to make a feature request? [📥 Submit one here!](https://github.com/anthonycorletti/snok/issues/new?assignees=&labels=enhancement&projects=&template=feature.md&title=%5BFEATURE%5D)***
 
-Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) and [pull requests](https://github.com/anthonycorletti/snok/pulls) to see what's coming soon!
+Check out the latest [issues](https://github.com/anthonycorletti/snok/issues) and [pull requests](https://github.com/anthonycorletti/snok/pulls) to see what else is happening.
 
 ## 📝 Requirements
 

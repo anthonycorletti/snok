@@ -102,6 +102,8 @@ class _RouterContentGenerator(_BaseContentGenerator):
         )
         namespace, routes = _input[0].lower(), _input[1:]
         os.makedirs(f"{_get_project_name()}/{namespace}", exist_ok=True)
+        with open(f"{_get_project_name()}/{namespace}/__init__.py", "w") as f:
+            pass
         router_filename = f"{_get_project_name()}/{namespace}/router.py"
         router_template_file = _get_snok_path() + "/templates/__app_router/router.py"
         content = Template(open(router_template_file).read()).render(

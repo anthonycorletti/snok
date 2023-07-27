@@ -3,11 +3,10 @@ from enum import Enum, unique
 APP_NAME = "snok"
 APP_DESC = "🚀 A simple, modern, full-stack toolkit for Python 🐍"
 PYPROJECT_TOML_FILENAME = "pyproject.toml"
-BASE_APP_PACKAGES = [
+BASE_DEPS = [
     "alembic",
     "asyncpg",
     "fastapi",
-    "greenlet",
     "httpx",
     "itsdangerous",
     "jinja2",
@@ -22,10 +21,12 @@ BASE_APP_PACKAGES = [
     "uvicorn",
 ]
 
-BASE_APP_DEV_PACKAGES = [
+BASE_DEV_DEPS = [
     "asgi-lifespan",
     "black",
     "coverage",
+    "greenlet",
+    "invoke",
     "mypy",
     "pre-commit",
     "pytest-asyncio",
@@ -34,7 +35,6 @@ BASE_APP_DEV_PACKAGES = [
     "pytest",
     "ruff",
     "watchfiles",
-    "invoke",
 ]
 
 
