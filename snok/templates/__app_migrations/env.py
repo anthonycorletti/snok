@@ -8,9 +8,8 @@ from sqlalchemy import create_engine, pool
 from sqlalchemy.engine.base import Connection
 from sqlmodel.ext.asyncio.session import AsyncEngine
 
-from alembic import context
 from {{ __template_name }}.config import settings
-from {{ __template_name }}.models import Model
+from {{ __template_name }}.models import RecordModel
 
 # configure local env setup
 os.environ["TZ"] = "UTC"
@@ -27,9 +26,7 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = Model.metadata
+target_metadata = RecordModel.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:

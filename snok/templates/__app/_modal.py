@@ -3,7 +3,8 @@ from typing import Any, Callable, List, Optional
 from {{ __template_name }}.config import Settings
 from {{ __template_name }}.logger import log
 from fastapi import FastAPI
-from modal import Dict, Function, Image, Queue, Secret, Stub, asgi_app
+from modal import Dict, Function, Image, Secret, Stub, asgi_app
+from modal import Queue as ModalQueue
 
 stub = Stub(name="{{ __template_name }}")
 Settings.Config.env_file = ".env.prod"
@@ -15,7 +16,7 @@ _kv = Dict.new()
 stub._kv = _kv
 stub._kv.persisted(label="{{ __template_name }}_kv")
 
-_queue = Queue.new()
+_queue = ModalQueue.new()
 stub._queue = _queue
 stub._queue.persisted(label="{{ __template_name }}_queue")
 

@@ -443,9 +443,9 @@ def _server(
             "--port",
             str(port),
             "--reload",
-            "--reload-includes",
+            "--reload-include",
             "*.html",
-            "--reload-includes",
+            "--reload-include",
             "*.css",
         ]
     )

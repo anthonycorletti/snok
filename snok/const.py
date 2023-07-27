@@ -6,7 +6,7 @@ PYPROJECT_TOML_FILENAME = "pyproject.toml"
 BASE_DEPS = [
     "alembic",
     "asyncpg",
-    "fastapi",
+    "fastapi<0.100.0",  # TODO: due to sqlmodel
     "httpx",
     "itsdangerous",
     "jinja2",
