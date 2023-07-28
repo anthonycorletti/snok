@@ -296,10 +296,16 @@ Now delete the user you just created 😭
 
 ```sh
 curl -X 'DELETE' \
-  'http://127.0.0.1:8000/api/v0/authors/${ID}' \
+  http://127.0.0.1:8000/api/v0/authors/${ID} \
   -H 'accept: */*'
 ```
 
 You shouldn't be able to find the user anymore
+
+```sh
+curl -X 'GET' \
+  'http://127.0.0.1:8000/api/v0/authors?order_by=updated_at&order_direction=desc&offset=0&limit=10' \
+  -H 'accept: application/json'
+```
 
 Super cool! Let's commit our code again and revel in our glory! We just made a full CRUD feature in a few minutes!

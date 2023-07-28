@@ -265,13 +265,20 @@ def _lint() -> None:  # pragma: no cover
     "format",
     help="Format the code.",
 )
-def _format() -> None:  # pragma: no cover
+def _format(
+    extra_paths: Optional[List[str]] = Argument(
+        None,
+        help="Extra paths to format. Defaults to [].",
+    ),
+) -> None:  # pragma: no cover
+    if extra_paths is None:
+        extra_paths = []
     echo("Formatting...")
     _run_cmd(
-        ["black", *_snok_sources()],
+        ["black", *_snok_sources(), *extra_paths],
     )
     _run_cmd(
-        ["ruff", "--fix", *_snok_sources()],
+        ["ruff", "--fix", *_snok_sources(), *extra_paths],
     )
 
 
