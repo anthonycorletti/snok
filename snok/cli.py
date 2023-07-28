@@ -271,7 +271,7 @@ def _format(
         help="Extra paths to format. Defaults to [].",
     ),
 ) -> None:  # pragma: no cover
-    if extra_paths is None:
+    if not isinstance(extra_paths, list):
         extra_paths = []
     echo("Formatting...")
     _run_cmd(
