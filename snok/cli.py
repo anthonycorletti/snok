@@ -206,7 +206,7 @@ def _add(
         dependency_group_name=dependency_group,
     )
     if install:
-        _install(dependency_groups=[dependency_group] if dependency_group else ["all"])
+        _install(dependency_groups=[dependency_group] if dependency_group else ["dev"])
 
 
 @app.command(
@@ -241,7 +241,7 @@ def _remove(
         ["pip", "uninstall", "-y", *packages],
     )
     if install:
-        _install(dependency_groups=[dependency_group] if dependency_group else ["all"])
+        _install(dependency_groups=[dependency_group] if dependency_group else ["dev"])
 
 
 @app.command(
@@ -325,7 +325,7 @@ def _publish() -> None:  # pragma: no cover
 )
 def _ok() -> None:  # pragma: no cover
     _clean()
-    _install(dependency_groups=["all"])
+    _install(dependency_groups=["dev"])
     _format()
     _lint()
     _test(keepitonehundred=False)
