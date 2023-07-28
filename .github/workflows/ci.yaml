@@ -32,7 +32,7 @@ jobs:
           cache-dependency-path: "pyproject.toml"
 
       - name: install
-        run: pip install .
+        run: pip install -e '.[dev]'
 
       - name: lint
         run: snok lint
