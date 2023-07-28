@@ -1,6 +1,6 @@
-# Packages
+# Apps
 
-Snok is great for scaffolding out initial, un-opinionated structure for your python package.
+Snok is great for scaffolding out RESTful APIs with FastAPI.
 
 ## Getting ready
 
@@ -98,7 +98,7 @@ snok server
 And in another terminal session run:
 
 ```sh
-$ curl -s -X GET http://127.0.0.1:8000/livez
+curl -s -X GET http://127.0.0.1:8000/livez
 ```
 
 You should see something to the effect of:
@@ -143,7 +143,7 @@ PGPASSWORD=myapp psql -h 0.0.0.0 -U myapp -c "create database myapp_development 
 And run the migrations:
 
 ```sh
-alembic revision --autogenerate -m "persons"
+alembic revision --autogenerate -m "posts"
 alembic upgrade head
 ```
 
@@ -167,7 +167,9 @@ Indexes:
 
 Wow! That's cool! Let's commit our code to git again and move on to the next part.
 
-### Create a FastAPI APIRouters
+If you run into any pre-commit snags, you can run `snok format` to format your code. Snok uses `ruff` under the hood to format your code, so you can run `ruff` directly if you want to as well.
+
+### Create FastAPI APIRouters
 
 Creating routers is fairly straightforward.
 
@@ -181,7 +183,7 @@ Now run the server again and check out the new endpoint:
 snok server
 ```
 
-If you go to http://127.0.0.1:8000/docs in your browser you should see the new endpoints!
+If you go to [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) in your browser you should see the new endpoints!
 
 Fill those in however you like.
 
@@ -221,7 +223,7 @@ Let's test this code out!
 snok test
 ```
 
-Awesome! We just generated a whole CRUD feature with tests super fast!
+Awesome! We just generated a fully tested CRUD feature with tests super fast!
 
 Let's run our migrations.
 

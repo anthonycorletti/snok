@@ -34,9 +34,10 @@ edit_uri: ""
 nav:
   - Welcome: index.md
   - Getting Started:
-      - Getting Started: getting-started/hello-snok.md
-      - Snok Packages: getting-started/packages.md
-      - Snok Apps: getting-started/apps.md
+      - 🐍 Getting Started: getting-started/hello-snok.md
+      - 📦 Snok Packages: getting-started/packages.md
+      - 🌎 Snok Apps: getting-started/apps.md
+      - 🚀 Modal: getting-started/modal.md
   - Development & Contributing: contributing.md
   - Release Notes: release-notes.md
 

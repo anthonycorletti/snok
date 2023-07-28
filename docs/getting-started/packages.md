@@ -56,3 +56,7 @@ snok new mypackage
 ```sh
 snok ok
 ```
+
+Now you're ready to start building your package!
+
+<br />
