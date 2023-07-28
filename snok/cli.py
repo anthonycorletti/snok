@@ -294,7 +294,10 @@ def _test(
     )
 ) -> None:  # pragma: no cover
     echo("Running tests...")
-    cmd = ["pytest"]
+    cmd = [
+        "ENV=test",
+        "pytest",
+    ]
     if keepitonehundred:
         cmd.append("--cov-fail-under=100")
     _run_cmd(cmd)
@@ -462,11 +465,18 @@ def _server(
 
 
 @app.command("deploy")
-def _deploy() -> None:  # pragma: no cover
+def _deploy(
+    env: str = Option(
+        "prod",
+        "--env",
+        "-e",
+        help="The environment to deploy to.",
+    ),
+) -> None:  # pragma: no cover
     """Deploy your code."""
     _run_cmd(
         [
-            "ENV=prod",
+            f"ENV={env}",
             "modal",
             "deploy",
             f"{_get_project_name()}/_modal.py",

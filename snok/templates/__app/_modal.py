@@ -1,15 +1,14 @@
 from typing import Any, Callable, List, Optional
 
-from {{ __template_name }}.config import Settings
+from {{ __template_name }}.config import settings
 from {{ __template_name }}.logger import log
 from fastapi import FastAPI
 from modal import Dict, Function, Image, Secret, Stub, asgi_app
 from modal import Queue as ModalQueue
 
 stub = Stub(name="{{ __template_name }}")
-Settings.Config.env_file = ".env.prod"
 stub["env"] = Secret.from_dict(
-    {str(k): str(v) for k, v in Settings().dict().items()}  # type: ignore
+    {str(k): str(v) for k, v in settings.dict().items()}  # type: ignore
 )
 
 _kv = Dict.new()

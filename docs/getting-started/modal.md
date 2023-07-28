@@ -55,6 +55,8 @@ snok new myapp --type app
 
 ### Check that everything's ready to go!
 
+You might have to set up a database so that tests pass, but we aren't testing anything with databases in this, so it's ok if tests fail.
+
 ```sh
 snok ok
 ```

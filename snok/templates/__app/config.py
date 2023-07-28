@@ -100,10 +100,7 @@ class Settings(BaseSettings):
 
 
 def _set_settings() -> Settings:
-    _env = ENV(os.environ["ENV"].lower()) if os.getenv("ENV") else ENV.dev
-    # override for test
-    if os.getenv("_", "").endswith("pytest") or "pytest" in "".join(sys.argv):
-        _env = ENV.test
+    _env = ENV(os.getenv("ENV", "dev").lower())
     Settings.Config.env_file = f".env.{_env.value}"
     return Settings()  # type: ignore
 
