@@ -145,7 +145,7 @@ def _install(
         ["pip", "install", "--upgrade", "pip"],
     )
     dep_install_str = "."
-    if dependency_groups and dependency_groups != ["prod"]:
+    if dependency_groups:
         dep_install_str += f"[{','.join(dependency_groups)}]"
     _run_cmd(
         [

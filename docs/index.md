@@ -109,6 +109,7 @@ snok remove fastapi
 ## 🫶 How can I help?
 
 - [⭐️ Star snok on GitHub! ⭐️](https://github.com/anthonycorletti/snok)
+- [Try out snok for yourself!](./getting-started/hello-snok.md)
 - Open an [issue](https://github.com/anthonycorletti/snok/issues/new/choose) if you have a question, comment, feature request, or bug report.
 - Open a [pull request](https://github.com/anthonycorletti/snok/compare) on GitHub. Contributions are encouraged and welcome!
 
