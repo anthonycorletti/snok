@@ -143,8 +143,8 @@ PGPASSWORD=myapp psql -h 0.0.0.0 -U myapp -c "create database myapp_development 
 And run the migrations:
 
 ```sh
-alembic revision --autogenerate -m "posts"
-alembic upgrade head
+snok db revision -a -m "posts"
+snok db migrate
 ```
 
 Now let's check that the table was created:
@@ -228,8 +228,8 @@ Awesome! We just generated a fully tested CRUD feature with tests super fast!
 Let's run our migrations.
 
 ```sh
-alembic revision --autogenerate -m "authors"
-alembic upgrade head
+snok db revision -a -m "authors"
+snok db migrate
 ```
 
 Let's check the table
