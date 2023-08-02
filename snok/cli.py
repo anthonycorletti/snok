@@ -36,6 +36,14 @@ app = Typer(
     no_args_is_help=True,
 )
 
+db_app = Typer(
+    name="db",
+    help="Interact with your database.",
+    no_args_is_help=True,
+)
+
+app.add_typer(db_app, name="db")
+
 
 @app.callback()
 def main_callback() -> None:
@@ -395,6 +403,7 @@ def _generate(
     }
     content_generator = content_generator_dispatcher[content_type]()
     content_generator.generate(_input=_input)
+    _format()
 
 
 @app.command(
@@ -483,3 +492,52 @@ def _deploy(
         ],
         echo=False,
     )
+
+
+@db_app.command(
+    "revision",
+    help="Create and apply database migrations.",
+    no_args_is_help=True,
+)
+def _db_revision(
+    autogenerate: bool = Option(
+        False,
+        "--autogenerate",
+        "-a",
+        help="Whether to autogenerate the revision.",
+    ),
+    message: str = Option(
+        ...,
+        "--message",
+        "-m",
+        help="The message for the revision.",
+    ),
+) -> None:  # pragma: no cover
+    _run_cmd(
+        [
+            "alembic",
+            "revision",
+            "--autogenerate" if autogenerate else "",
+            "-m",
+            message,
+        ]
+    )
+    _format(extra_paths=["migrations"])
+
+
+@db_app.command(
+    "migrate",
+    help="Apply database migrations.",
+    no_args_is_help=True,
+)
+def _db_migrate(
+    direction: str = Argument(
+        "upgrade",
+        help="The direction to migrate in. Can be 'upgrade' or 'downgrade'.",
+    ),
+    revision: str = Argument(
+        "head",
+        help="The revision to migrate to.",
+    ),
+) -> None:  # pragma: no cover
+    _run_cmd(["alembic", direction, revision])
