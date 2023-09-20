@@ -1,4 +1,5 @@
 import os
+import sys
 from typing import Any, Dict, Iterable, List, Optional
 
 import httpx
@@ -202,3 +203,7 @@ def _install_node_module_requirements() -> None:  # pragma: no cover
             "prettier",
         ]
     )
+
+
+def _check_pty() -> bool:  # pragma: no cover
+    return sys.platform not in ["win32", "cygwin", "msys"]
