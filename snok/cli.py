@@ -528,7 +528,6 @@ def _db_revision(
 @db_app.command(
     "migrate",
     help="Apply database migrations.",
-    no_args_is_help=True,
 )
 def _db_migrate(
     direction: str = Argument(
