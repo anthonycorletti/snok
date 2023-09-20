@@ -519,7 +519,7 @@ def _db_revision(
             "revision",
             "--autogenerate" if autogenerate else "",
             "-m",
-            message,
+            f'"{message}"',
         ]
     )
     _format(extra_paths=["migrations"])
