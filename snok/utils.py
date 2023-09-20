@@ -23,14 +23,13 @@ def _get_snok_path() -> str:
 
 def _run_cmd(
     cmd: List[str],
-    pty: bool = True,
     echo: bool = True,
 ) -> None:  # pragma: no cover
     ctx = Context()
     try:
         ctx.run(
             " ".join(cmd),
-            pty=pty,
+            pty=_check_pty(),
             echo=echo,
         )
     except Exception:

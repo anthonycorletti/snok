@@ -1,5 +1,11 @@
+import sys
+
 from invoke import task
 from invoke.context import Context
+
+
+def _check_pty() -> bool:
+    return sys.platform not in ["win32", "cygwin", "msys"]
 
 
 @task
@@ -10,22 +16,22 @@ def docs_build(ctx: Context) -> None:
     """
     ctx.run(
         "mkdocs build",
-        pty=True,
+        pty=_check_pty(),
         echo=True,
     )
     ctx.run(
         "cp ./docs/index.md ./README.md",
-        pty=True,
+        pty=_check_pty(),
         echo=True,
     )
     ctx.run(
         "git add ./docs README.md",
-        pty=True,
+        pty=_check_pty(),
         echo=True,
     )
     ctx.run(
         "git commit -S -m '📚 Updated docs.'",
-        pty=True,
+        pty=_check_pty(),
         echo=True,
     )
 
@@ -38,6 +44,6 @@ def docs_serve(ctx: Context) -> None:
     """
     ctx.run(
         "mkdocs serve --dev-addr 127.0.0.1:8008",
-        pty=True,
+        pty=_check_pty(),
         echo=True,
     )
