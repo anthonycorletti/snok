@@ -39,6 +39,12 @@ exclude = ["tests"]
 
 [tool.ruff]
 line-length = 88
+include = [
+    "*.py",
+]
+target-version = "py310"
+
+[tool.ruff.lint]
 ignore = [
     "D10",
     "D203",
@@ -54,15 +60,14 @@ ignore = [
     "D413",
     "D415",
 ]
-include = [
-    "*.py",
-]
 select = [
     "E",
     "F",
     "I",
 ]
-target-version = "py310"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 
 [tool.black]
@@ -93,9 +98,6 @@ exclude = ["dist", "build", ".venv"]
 [[tool.mypy.overrides]]
 module = "{{ __template_name }}._modal"
 ignore_errors = true
-
-[tool.ruff.pydocstyle]
-convention = "google"
 
 [tool.pytest.ini_options]
 addopts = [
