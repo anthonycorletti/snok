@@ -1,6 +1,6 @@
 import os
 import sys
-from typing import Any, Dict, Iterable, List, Optional
+from typing import Dict, List, Optional
 
 import httpx
 import toml
@@ -81,15 +81,6 @@ class TomlEncoder(toml.TomlEncoder):  # pragma: no cover
     def __init__(self, _dict: type = dict, preserve: bool = False) -> None:
         super().__init__(_dict=_dict, preserve=preserve)
         self.dump_funcs[str] = self._dump_str
-
-    def dump_list(self, v: Iterable[Any]) -> str:
-        end = "\n"
-        leading_space = " " * 4
-        retval = f"[{end}"
-        for u in v:
-            retval += leading_space + str(self.dump_value(u)) + f",{end}"
-        retval += "]"
-        return retval
 
     def _dump_str(self, v: str) -> str:
         if v.startswith("/("):
