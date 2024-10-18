@@ -5,8 +5,8 @@
     <em>🚀 A simple, modern, full-stack toolkit for Python 🐍</em>
 </p>
 <p align="center">
-<a href="https://github.com/anthonycorletti/snok/actions?query=workflow%3Atest" target="_blank">
-    <img src="https://github.com/anthonycorletti/snok/workflows/test/badge.svg" alt="Test">
+<a href="https://github.com/anthonycorletti/snok/actions?query=workflow%3Aci" target="_blank">
+    <img src="https://github.com/anthonycorletti/snok/workflows/ci/badge.svg" alt="Test">
 </a>
 <a href="https://github.com/anthonycorletti/snok/actions?query=workflow%3Apublish" target="_blank">
     <img src="https://github.com/anthonycorletti/snok/workflows/publish/badge.svg" alt="publish">
