@@ -265,7 +265,7 @@ def _lint() -> None:  # pragma: no cover
         ["black", "--check", *_snok_sources()],
     )
     _run_cmd(
-        ["ruff", *_snok_sources()],
+        ["ruff", "check", *_snok_sources()],
     )
 
 
@@ -286,7 +286,7 @@ def _format(
         ["black", *_snok_sources(), *extra_paths],
     )
     _run_cmd(
-        ["ruff", "--fix", *_snok_sources(), *extra_paths],
+        ["ruff", "check", "--fix", *_snok_sources(), *extra_paths],
     )
 
 
@@ -299,7 +299,7 @@ def _test(
         False,
         "--keepitonehundred",
         help="Fail if the test coverage is less than 100%. Defaults to False.",
-    )
+    ),
 ) -> None:  # pragma: no cover
     echo("Running tests...")
     cmd = [
